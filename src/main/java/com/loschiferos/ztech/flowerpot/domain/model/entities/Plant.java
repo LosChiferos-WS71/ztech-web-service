@@ -10,12 +10,19 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class Flowerpot {
+public class Plant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String code;
+    private String name;
 
-    private boolean state;
+    private String description;
+
+    private int maxTemperature;
+    private int maxSunlight;
+    private int maxHumidity;
+    private int minTemperature;
+    private int minSunlight;
+    private int minHumidity;
 }
