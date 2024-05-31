@@ -1,5 +1,6 @@
 package com.loschiferos.ztech.flowerpot.domain.model.aggregates;
 
+import com.loschiferos.ztech.flowerpot.domain.model.entities.Flowerpot;
 import com.loschiferos.ztech.flowerpot.domain.model.entities.Plant;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,11 +18,11 @@ public class FlowerpotRecommend {
     @Getter
     @ManyToOne
     @JoinColumn(name = "flowerpot_id")
-    private Plant flowerpotId;
+    private Flowerpot flowerpotId;
 
     private String text;
 
-    public FlowerpotRecommend(Plant flowerpotId, String text) {
+    public FlowerpotRecommend(Flowerpot flowerpotId, String text) {
         this();
         this.flowerpotId = flowerpotId;
         this.text = text;

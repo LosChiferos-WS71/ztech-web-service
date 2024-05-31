@@ -20,4 +20,10 @@ public class PlantRecommendation {
     private Plant plantId;
 
     private String text;
+
+    public PlantRecommendation(Plant plantId, String text) {
+        this();
+        this.plantId = plantId;
+        this.text = text;
+    }
 }
