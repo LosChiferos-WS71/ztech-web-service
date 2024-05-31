@@ -20,4 +20,10 @@ public class FlowerpotRecommend {
     private Plant flowerpotId;
 
     private String text;
+
+    public FlowerpotRecommend(Plant flowerpotId, String text) {
+        this();
+        this.flowerpotId = flowerpotId;
+        this.text = text;
+    }
 }
