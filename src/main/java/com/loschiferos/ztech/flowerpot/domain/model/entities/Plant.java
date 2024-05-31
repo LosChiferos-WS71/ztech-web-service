@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Plant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,16 +41,5 @@ public class Plant {
         this.minTemperature = minTemperature;
         this.minSunlight = minSunlight;
         this.minHumidity = minHumidity;
-    }
-
-    public Plant() {
-        this.name = "";
-        this.description = "";
-        this.maxTemperature = 0;
-        this.maxSunlight = 0;
-        this.maxHumidity = 0;
-        this.minTemperature = 0;
-        this.minSunlight = 0;
-        this.minHumidity = 0;
     }
 }
