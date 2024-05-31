@@ -8,8 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 public class Flowerpot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,4 +16,15 @@ public class Flowerpot {
     private String code;
 
     private boolean state;
+
+    public Flowerpot(String code, boolean state) {
+        this();
+        this.code = code;
+        this.state = state;
+    }
+
+    public Flowerpot() {
+        this.code = "";
+        this.state = false;
+    }
 }
