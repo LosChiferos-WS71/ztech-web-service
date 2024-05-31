@@ -1,4 +1,4 @@
-package com.loschiferos.ztech.flowerpot.domain.model.entities;
+package com.loschiferos.ztech.flowerpot.domain.model.aggregates;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,13 +15,4 @@ public class Flowerpot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String code;
-
-    private boolean state;
-
-    public Flowerpot(String code, boolean state) {
-        this();
-        this.code = code;
-        this.state = state;
-    }
 }

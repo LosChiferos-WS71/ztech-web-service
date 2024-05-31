@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Plant {
+public class PlantMetric {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,7 +31,7 @@ public class Plant {
 
     private int minHumidity;
 
-    public Plant(String name, String description, int maxTemperature, int maxSunlight, int maxHumidity, int minTemperature, int minSunlight, int minHumidity) {
+    public PlantMetric(String name, String description, int maxTemperature, int maxSunlight, int maxHumidity, int minTemperature, int minSunlight, int minHumidity) {
         this();
         this.name = name;
         this.description = description;
