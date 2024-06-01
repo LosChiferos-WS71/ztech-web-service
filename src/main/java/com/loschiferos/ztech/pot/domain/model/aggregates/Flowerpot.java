@@ -21,7 +21,6 @@ public class Flowerpot {
     private SensorsData sensorsData;
 
     public Flowerpot(String code, boolean active, SensorsData sensorsData) {
-        this();
         this.code = code;
         this.active = active;
         this.sensorsData = sensorsData;

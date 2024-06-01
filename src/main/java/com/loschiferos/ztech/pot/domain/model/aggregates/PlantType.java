@@ -20,7 +20,6 @@ public class PlantType {
     private String description;
 
     public PlantType(String name, String description) {
-        this();
         this.name = name;
         this.description = description;
     }

@@ -18,7 +18,6 @@ public class Sensor {
     private String name;
 
     public Sensor(String name) {
-        this();
         this.name = name;
     }
 }

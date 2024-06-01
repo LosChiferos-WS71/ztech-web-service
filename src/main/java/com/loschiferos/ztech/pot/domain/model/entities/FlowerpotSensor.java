@@ -3,6 +3,7 @@ package com.loschiferos.ztech.pot.domain.model.entities;
 import com.loschiferos.ztech.pot.domain.model.aggregates.Flowerpot;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
@@ -23,12 +24,12 @@ public class FlowerpotSensor {
     @JoinColumn(name = "sensor_id")
     private Sensor sensor;
 
+    @Getter
     private int value;
 
     private Timestamp timestamp;
 
     public FlowerpotSensor(Flowerpot flowerpot, Sensor sensor, int value, Timestamp timestamp) {
-        this();
         this.flowerpot = flowerpot;
         this.sensor = sensor;
         this.value = value;

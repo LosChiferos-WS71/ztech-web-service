@@ -18,7 +18,6 @@ public class Parameter {
     private String name;
 
     public Parameter(String name) {
-        this();
         this.name = name;
     }
 }
