@@ -1,6 +1,6 @@
-package com.loschiferos.ztech.flowerpot.domain.model.aggregates;
+package com.loschiferos.ztech.pot.domain.model.aggregates;
 
-import com.loschiferos.ztech.flowerpot.domain.model.valueobjects.SensorsData;
+import com.loschiferos.ztech.pot.domain.model.valueobjects.SensorsData;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

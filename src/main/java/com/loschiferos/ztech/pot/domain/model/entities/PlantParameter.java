@@ -1,6 +1,6 @@
-package com.loschiferos.ztech.flowerpot.domain.model.entities;
+package com.loschiferos.ztech.pot.domain.model.entities;
 
-import com.loschiferos.ztech.flowerpot.domain.model.aggregates.PlantType;
+import com.loschiferos.ztech.pot.domain.model.aggregates.PlantType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

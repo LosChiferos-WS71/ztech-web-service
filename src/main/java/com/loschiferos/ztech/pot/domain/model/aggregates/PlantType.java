@@ -1,4 +1,4 @@
-package com.loschiferos.ztech.flowerpot.domain.model.aggregates;
+package com.loschiferos.ztech.pot.domain.model.aggregates;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

@@ -1,4 +1,4 @@
-package com.loschiferos.ztech.flowerpot.domain.model.valueobjects;
+package com.loschiferos.ztech.pot.domain.model.valueobjects;
 
 import jakarta.persistence.Embeddable;
 import lombok.Getter;

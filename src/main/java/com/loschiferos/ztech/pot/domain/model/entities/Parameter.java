@@ -1,4 +1,4 @@
-package com.loschiferos.ztech.flowerpot.domain.model.entities;
+package com.loschiferos.ztech.pot.domain.model.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,14 +10,14 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Sensor {
+public class Parameter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    public Sensor(String name) {
+    public Parameter(String name) {
         this();
         this.name = name;
     }
