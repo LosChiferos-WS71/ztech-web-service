@@ -15,4 +15,13 @@ public class Flowerpot {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String code;
+
+    private boolean active;
+
+    public Flowerpot(String code, boolean active) {
+        this();
+        this.code = code;
+        this.active = active;
+    }
 }

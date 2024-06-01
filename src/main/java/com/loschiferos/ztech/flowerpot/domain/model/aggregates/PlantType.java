@@ -19,5 +19,9 @@ public class PlantType {
 
     private String description;
 
-    private int plantParameterId;
+    public PlantType(String name, String description) {
+        this();
+        this.name = name;
+        this.description = description;
+    }
 }
