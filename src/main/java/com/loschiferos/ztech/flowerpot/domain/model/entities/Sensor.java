@@ -10,10 +10,15 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Metric {
+public class Sensor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
 
+    public Sensor(String name) {
+        this();
+        this.name = name;
+    }
 }
