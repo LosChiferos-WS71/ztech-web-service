@@ -16,4 +16,9 @@ public class Parameter {
     private Long id;
 
     private String name;
+
+    public Parameter(String name) {
+        this();
+        this.name = name;
+    }
 }

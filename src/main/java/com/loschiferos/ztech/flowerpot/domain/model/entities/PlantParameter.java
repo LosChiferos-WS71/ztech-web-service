@@ -20,4 +20,11 @@ public class PlantParameter {
     private Parameter parameter;
 
     private int value;
+
+    public PlantParameter(PlantType plantType, Parameter parameter, int value) {
+        this();
+        this.plantType = plantType;
+        this.parameter = parameter;
+        this.value = value;
+    }
 }
