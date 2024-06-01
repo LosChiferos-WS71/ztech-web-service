@@ -1,9 +1,7 @@
 package com.loschiferos.ztech.flowerpot.domain.model.aggregates;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.loschiferos.ztech.flowerpot.domain.model.valueobjects.SensorsData;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -19,9 +17,13 @@ public class Flowerpot {
 
     private boolean active;
 
-    public Flowerpot(String code, boolean active) {
+    @Embedded
+    private SensorsData sensorsData;
+
+    public Flowerpot(String code, boolean active, SensorsData sensorsData) {
         this();
         this.code = code;
         this.active = active;
+        this.sensorsData = sensorsData;
     }
 }
