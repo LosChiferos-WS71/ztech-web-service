@@ -3,9 +3,11 @@ package com.loschiferos.ztech.pot.domain.model.aggregates;
 import com.loschiferos.ztech.pot.domain.model.valueobjects.SensorsData;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Flowerpot {
