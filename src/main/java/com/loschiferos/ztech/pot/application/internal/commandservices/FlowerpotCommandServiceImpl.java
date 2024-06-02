@@ -21,7 +21,7 @@ public class FlowerpotCommandServiceImpl implements FlowerpotCommandService {
     @Override
     public Long handle(CreateFlowerpotCommand command) {
         if (flowerpotRepository.existsByCode(command.code())) {
-            throw new IllegalArgumentException("Flowerpot with same title already exists");
+            throw new IllegalArgumentException("Flowerpot with same code already exists");
         }
         SensorsData sensorsData = new SensorsData(command.lastTemperature(), command.lastHumidity(), command.lastSunlight());
         Flowerpot flowerpot = new Flowerpot(command.code(), command.active(), sensorsData);
