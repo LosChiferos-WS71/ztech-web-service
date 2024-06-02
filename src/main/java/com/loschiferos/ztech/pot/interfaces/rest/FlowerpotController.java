@@ -1,6 +1,5 @@
 package com.loschiferos.ztech.pot.interfaces.rest;
 
-import com.loschiferos.ztech.pot.domain.model.aggregates.Flowerpot;
 import com.loschiferos.ztech.pot.domain.model.queries.GetFlowerpotByIdQuery;
 import com.loschiferos.ztech.pot.domain.services.FlowerpotCommandService;
 import com.loschiferos.ztech.pot.domain.services.FlowerpotQueryService;
