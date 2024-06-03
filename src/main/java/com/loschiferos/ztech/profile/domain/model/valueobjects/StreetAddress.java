@@ -10,7 +10,7 @@ public record StreetAddress(String street, String number, String city, String zi
     }
 
     public String getStreetAddress() {
-        return String.format("%s %sth, %s, %s, %s", street, number, city, zipCode);
+        return String.format("%s %sth, %s, %s", street, number, city, zipCode);
     }
 
     public StreetAddress {
