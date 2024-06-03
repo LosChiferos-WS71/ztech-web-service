@@ -38,4 +38,29 @@ public class Profile {
     private int phone;
 
     private String photo;
+
+    public Profile(String firstName, String lastName, String email, String password, String street, String number, String city, String zipCode, int phone, String photo) {
+        this.name = new PersonName(firstName, lastName);
+        this.email = new EmailAddress(email);
+        this.password = password;
+        this.address = new StreetAddress(street, number, city, zipCode);
+        this.phone = phone;
+        this.photo = photo;
+    }
+
+    public void updateName(String firstName, String lastName) {
+        this.name = new PersonName(firstName, lastName);
+    }
+
+    public String getFullName() {
+        return this.name.getFullName();
+    }
+
+    public String getStreetAddress() {
+        return this.address.getStreetAddress();
+    }
+
+    public String getEmailAddress() {
+        return this.email.address();
+    }
 }
