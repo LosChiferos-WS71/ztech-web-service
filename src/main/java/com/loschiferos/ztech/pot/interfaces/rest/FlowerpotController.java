@@ -1,5 +1,6 @@
 package com.loschiferos.ztech.pot.interfaces.rest;
 
+import com.loschiferos.ztech.pot.domain.model.aggregates.Flowerpot;
 import com.loschiferos.ztech.pot.domain.model.queries.GetFlowerpotByIdQuery;
 import com.loschiferos.ztech.pot.domain.services.FlowerpotCommandService;
 import com.loschiferos.ztech.pot.domain.services.FlowerpotQueryService;
@@ -10,10 +11,9 @@ import com.loschiferos.ztech.pot.interfaces.rest.transform.FlowerpotResourceFrom
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/flowerpots")
@@ -42,5 +42,16 @@ public class FlowerpotController {
         }
         var flowerpotResource = FlowerpotResourceFromEntityAssembler.toResourceFromEntity(flowerpot.get());
         return new ResponseEntity<>(flowerpotResource, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{flowerpotId}")
+    public ResponseEntity<FlowerpotResource> getFlowerpotById(@PathVariable Long flowerpotId) {
+        var getFlowerpotByIdQuery = new GetFlowerpotByIdQuery(flowerpotId);
+        var flowerpot = flowerpotQueryService.handle(getFlowerpotByIdQuery);
+        if(flowerpot.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        var flowerpotResource = FlowerpotResourceFromEntityAssembler.toResourceFromEntity(flowerpot.get());
+        return ResponseEntity.ok(flowerpotResource);
     }
 }
