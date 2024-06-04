@@ -1,15 +1,17 @@
 package com.loschiferos.ztech.pot.domain.model.aggregates;
 
+import com.loschiferos.ztech.pot.domain.model.entities.Sensor;
+import com.loschiferos.ztech.pot.domain.model.valueobjects.SensorList;
+import com.loschiferos.ztech.pot.domain.model.valueobjects.SensorType;
 import com.loschiferos.ztech.pot.domain.model.valueobjects.SensorsData;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import org.apache.logging.log4j.util.Strings;
 
 @Entity
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
 public class Flowerpot {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,9 +24,25 @@ public class Flowerpot {
     @Embedded
     private SensorsData sensorsData;
 
+    @Embedded
+    private final SensorList sensorList;
+
+    public Flowerpot() {
+        this.code = Strings.EMPTY;
+        this.active = false;
+        this.sensorsData = new SensorsData();
+        this.sensorList = new SensorList();
+    }
+
     public Flowerpot(String code, boolean active, SensorsData sensorsData) {
+        this();
         this.code = code;
         this.active = active;
         this.sensorsData = sensorsData;
+    }
+
+    public void createSensor(int internalSerialNumber, SensorType type, int value) {
+        Sensor sensor = new Sensor(internalSerialNumber, type, value, this);
+        this.sensorList.createSensor(sensor);
     }
 }
