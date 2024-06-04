@@ -1,14 +1,11 @@
 package com.loschiferos.ztech.pot.interfaces.rest;
 
-import com.loschiferos.ztech.pot.domain.model.queries.GetFlowerpotByIdQuery;
 import com.loschiferos.ztech.pot.domain.model.queries.GetPlantTypeByIdQuery;
 import com.loschiferos.ztech.pot.domain.services.PlantTypeCommandService;
 import com.loschiferos.ztech.pot.domain.services.PlantTypeQueryService;
 import com.loschiferos.ztech.pot.interfaces.rest.resources.CreatePlantTypeResource;
-import com.loschiferos.ztech.pot.interfaces.rest.resources.FlowerpotResource;
 import com.loschiferos.ztech.pot.interfaces.rest.resources.PlantTypeResource;
 import com.loschiferos.ztech.pot.interfaces.rest.transform.CreatePlantTypeCommandFromResourceAssembler;
-import com.loschiferos.ztech.pot.interfaces.rest.transform.FlowerpotResourceFromEntityAssembler;
 import com.loschiferos.ztech.pot.interfaces.rest.transform.PlantTypeResourceFromEntityAssembler;
 import com.loschiferos.ztech.shared.domain.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -9,7 +9,7 @@ import com.loschiferos.ztech.pot.interfaces.rest.resources.FlowerpotResource;
 import com.loschiferos.ztech.pot.interfaces.rest.transform.CreateFlowerpotCommandFromResourceAssembler;
 import com.loschiferos.ztech.pot.interfaces.rest.transform.CreateSensorCommandFromResourceAssembler;
 import com.loschiferos.ztech.pot.interfaces.rest.transform.FlowerpotResourceFromEntityAssembler;
-import com.loschiferos.ztech.shared.domain.exceptions.ErrorMessage;
+import com.loschiferos.ztech.shared.domain.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,7 +49,7 @@ public class FlowerpotController {
         var getFlowerpotByIdQuery = new GetFlowerpotByIdQuery(flowerpotId);
         var flowerpot = flowerpotQueryService.handle(getFlowerpotByIdQuery);
         if(flowerpot.isEmpty()) {
-            return ResponseEntity.notFound().build();
+            throw new ResourceNotFoundException("Flowerpot not found");
         }
         var flowerpotResource = FlowerpotResourceFromEntityAssembler.toResourceFromEntity(flowerpot.get());
         return ResponseEntity.ok(flowerpotResource);
