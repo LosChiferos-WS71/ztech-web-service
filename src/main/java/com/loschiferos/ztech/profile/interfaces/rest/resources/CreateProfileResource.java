@@ -12,4 +12,5 @@ public record CreateProfileResource(
         int phone,
         String photo
 ) {
+
 }
