@@ -26,4 +26,11 @@ public class PlantOwner {
     private Date birthday;
 
     private String gender;
+
+    public PlantOwner(Profile profile, int dni, Date birthday, String gender) {
+        this.profile = profile;
+        this.dni = dni;
+        this.birthday = birthday;
+        this.gender = gender;
+    }
 }

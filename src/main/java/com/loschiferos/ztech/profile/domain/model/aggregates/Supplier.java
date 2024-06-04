@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Entity
 @Getter
 @AllArgsConstructor
@@ -20,4 +22,9 @@ public class Supplier {
     private Profile profile;
 
     private String ruc;
+
+    public Supplier(Profile profile, String ruc) {
+        this.profile = profile;
+        this.ruc = ruc;
+    }
 }
