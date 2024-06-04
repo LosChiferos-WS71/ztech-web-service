@@ -41,7 +41,7 @@ public class Flowerpot {
         this.sensorsData = sensorsData;
     }
 
-    public void createSensor(int internalSerialNumber, SensorType type, int value) {
+    public void createSensor(Double internalSerialNumber, SensorType type, Double value) {
         Sensor sensor = new Sensor(internalSerialNumber, type, value, this);
         this.sensorList.createSensor(sensor);
     }

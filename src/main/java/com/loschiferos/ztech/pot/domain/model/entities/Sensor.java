@@ -20,15 +20,15 @@ public class Sensor {
     @JoinColumn(name = "flowerpot_id")
     private Flowerpot flowerpot;
 
-    private int internalSerialNumber;
+    private Double internalSerialNumber;
 
     private SensorType type;
 
-    private int value;
+    private Double value;
 
     private Timestamp timestamp;
 
-    public Sensor(int internalSerialNumber, SensorType type, int value, Flowerpot flowerpot) {
+    public Sensor(Double internalSerialNumber, SensorType type, Double value, Flowerpot flowerpot) {
         this.internalSerialNumber = internalSerialNumber;
         this.type = type;
         this.value = value;

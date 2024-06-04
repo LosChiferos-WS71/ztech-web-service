@@ -9,6 +9,7 @@ import com.loschiferos.ztech.pot.interfaces.rest.resources.FlowerpotResource;
 import com.loschiferos.ztech.pot.interfaces.rest.transform.CreateFlowerpotCommandFromResourceAssembler;
 import com.loschiferos.ztech.pot.interfaces.rest.transform.CreateSensorCommandFromResourceAssembler;
 import com.loschiferos.ztech.pot.interfaces.rest.transform.FlowerpotResourceFromEntityAssembler;
+import com.loschiferos.ztech.shared.domain.exceptions.ErrorMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
