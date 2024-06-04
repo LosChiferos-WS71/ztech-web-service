@@ -64,4 +64,22 @@ public class SupplierController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(supplierResources);
     }
+
+    @PutMapping
+    public ResponseEntity<SupplierResource> updateSupplier(@RequestBody CreateSupplierResource resource) {
+        var createSupplierCommand = CreateSupplierCommandFromResourceAssembler.toCommandFromResource(resource);
+        var supplierId = supplierCommandService.handle(createSupplierCommand);
+        if (supplierId == 0L) {
+            return ResponseEntity.badRequest().build();
+        }
+        var getSupplierByIdQuery = new GetSupplierByIdQuery(supplierId);
+        var supplier = supplierQueryService.handle(getSupplierByIdQuery);
+
+        if (supplier.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        var supplierResource = SupplierResourceFromEntityAssembler.toResourceFromEntity(supplier.get());
+        return new ResponseEntity<>(supplierResource, HttpStatus.CREATED);
+    }
 }

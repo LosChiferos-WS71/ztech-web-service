@@ -64,4 +64,22 @@ public class PlantOwnerController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(plantOwnerResources);
     }
+
+    @PutMapping
+    public ResponseEntity<PlantOwnerResource> updatePlantOwner(@RequestBody CreatePlantOwnerResource resource) {
+        var createPlantOwnerCommand = CreatePlantOwnerCommandFromResourceAssembler.toCommandFromResource(resource);
+        var plantOwnerId = plantOwnerCommandService.handle(createPlantOwnerCommand);
+        if (plantOwnerId == 0L) {
+            return ResponseEntity.badRequest().build();
+        }
+        var getPlantOwnerByIdQuery = new GetPlantOwnerByIdQuery(plantOwnerId);
+        var plantOwner = plantOwnerQueryService.handle(getPlantOwnerByIdQuery);
+
+        if (plantOwner.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        var plantOwnerResource = PlantOwnerResourceFromEntityAssembler.toResourceFromEntity(plantOwner.get());
+        return new ResponseEntity<>(plantOwnerResource, HttpStatus.CREATED);
+    }
 }
