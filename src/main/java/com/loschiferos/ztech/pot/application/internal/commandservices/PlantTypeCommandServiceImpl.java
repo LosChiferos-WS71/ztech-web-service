@@ -1,9 +1,12 @@
 package com.loschiferos.ztech.pot.application.internal.commandservices;
 
 import com.loschiferos.ztech.pot.domain.model.aggregates.PlantType;
+import com.loschiferos.ztech.pot.domain.model.commands.CreateParameterCommand;
 import com.loschiferos.ztech.pot.domain.model.commands.CreatePlantTypeCommand;
+import com.loschiferos.ztech.pot.domain.model.valueobjects.ParameterType;
 import com.loschiferos.ztech.pot.domain.services.PlantTypeCommandService;
 import com.loschiferos.ztech.pot.infrastructure.persistance.jpa.repositories.PlantTypeRepository;
+import com.loschiferos.ztech.shared.domain.exceptions.ResourceNotFoundException;
 import com.loschiferos.ztech.shared.domain.exceptions.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,5 +36,27 @@ public class PlantTypeCommandServiceImpl implements PlantTypeCommandService {
         PlantType plantType = new PlantType(command.name(), command.description());
         PlantType savedPlantType = plantTypeRepository.save(plantType);
         return savedPlantType.getId();
+    }
+
+    @Override
+    public void handle(CreateParameterCommand command) {
+        PlantType plantType = plantTypeRepository.findById(command.plantTypeId())
+                .orElseThrow(() -> new ResourceNotFoundException("PlantType not found"));
+
+        validateCreateParameterCommand(command);
+
+        var parameterType = ParameterType.fromValue(command.type());
+
+        plantType.createParameter(parameterType, command.value());
+        plantTypeRepository.save(plantType);
+    }
+
+    private void validateCreateParameterCommand(CreateParameterCommand command) {
+        if (command.type() == null) {
+            throw new ValidationException("Type cannot be empty");
+        }
+        if (command.value() == null || command.value().describeConstable().isEmpty()) {
+            throw new ValidationException("Value cannot be empty");
+        }
     }
 }

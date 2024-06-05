@@ -3,8 +3,10 @@ package com.loschiferos.ztech.pot.interfaces.rest;
 import com.loschiferos.ztech.pot.domain.model.queries.GetPlantTypeByIdQuery;
 import com.loschiferos.ztech.pot.domain.services.PlantTypeCommandService;
 import com.loschiferos.ztech.pot.domain.services.PlantTypeQueryService;
+import com.loschiferos.ztech.pot.interfaces.rest.resources.CreateParameterResource;
 import com.loschiferos.ztech.pot.interfaces.rest.resources.CreatePlantTypeResource;
 import com.loschiferos.ztech.pot.interfaces.rest.resources.PlantTypeResource;
+import com.loschiferos.ztech.pot.interfaces.rest.transform.CreateParameterCommandFromResourceAssembler;
 import com.loschiferos.ztech.pot.interfaces.rest.transform.CreatePlantTypeCommandFromResourceAssembler;
 import com.loschiferos.ztech.pot.interfaces.rest.transform.PlantTypeResourceFromEntityAssembler;
 import com.loschiferos.ztech.shared.domain.exceptions.ResourceNotFoundException;
@@ -51,5 +53,12 @@ public class PlantTypeController {
         }
         var plantTypeResource = PlantTypeResourceFromEntityAssembler.toResourceFromEntity(plantType.get());
         return ResponseEntity.ok(plantTypeResource);
+    }
+
+    @PostMapping("/{plantTypeId}/parameters")
+    public ResponseEntity<Void> createParameter(@RequestBody CreateParameterResource resource) {
+        var addParameterCommand = CreateParameterCommandFromResourceAssembler.toCommandFromResource(resource);
+        plantTypeCommandService.handle(addParameterCommand);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

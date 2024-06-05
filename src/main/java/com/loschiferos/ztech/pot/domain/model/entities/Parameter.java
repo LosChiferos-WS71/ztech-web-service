@@ -1,9 +1,8 @@
 package com.loschiferos.ztech.pot.domain.model.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.loschiferos.ztech.pot.domain.model.aggregates.PlantType;
+import com.loschiferos.ztech.pot.domain.model.valueobjects.ParameterType;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -15,9 +14,17 @@ public class Parameter {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "plant_type_id")
+    private PlantType plantType;
 
-    public Parameter(String name) {
-        this.name = name;
+    private ParameterType parameterType;
+
+    private Long value;
+
+    public Parameter(PlantType plantType, ParameterType parameterType, Long value) {
+        this.plantType = plantType;
+        this.parameterType = parameterType;
+        this.value = value;
     }
 }

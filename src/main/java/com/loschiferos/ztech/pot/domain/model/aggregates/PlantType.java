@@ -1,5 +1,9 @@
 package com.loschiferos.ztech.pot.domain.model.aggregates;
 
+import com.loschiferos.ztech.pot.domain.model.entities.Parameter;
+import com.loschiferos.ztech.pot.domain.model.valueobjects.ParameterList;
+import com.loschiferos.ztech.pot.domain.model.valueobjects.ParameterType;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,13 +24,23 @@ public class PlantType {
 
     private String description;
 
+    @Embedded
+    private final ParameterList parameterList;
+
     public PlantType() {
         this.name = Strings.EMPTY;
         this.description = Strings.EMPTY;
+        this.parameterList = new ParameterList();
     }
 
     public PlantType(String name, String description) {
+        this();
         this.name = name;
         this.description = description;
+    }
+
+    public void createParameter(ParameterType type, Long value) {
+        Parameter parameter = new Parameter(this, type, value);
+        this.parameterList.createParameter(parameter);
     }
 }
