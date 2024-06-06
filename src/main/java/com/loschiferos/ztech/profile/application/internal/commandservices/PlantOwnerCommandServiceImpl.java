@@ -37,24 +37,6 @@ public class PlantOwnerCommandServiceImpl implements PlantOwnerCommandService {
         if (command.password().isBlank()) {
             throw new ValidationException("Password cannot be blank");
         }
-        if (command.address().isBlank()) {
-            throw new ValidationException("Address cannot be blank");
-        }
-        if (command.phone() == null) {
-            throw new ValidationException("Phone cannot be blank");
-        }
-        if (command.photo().isBlank()) {
-            throw new ValidationException("Photo cannot be blank");
-        }
-        if (command.dni().describeConstable().isEmpty()) {
-            throw new ValidationException("Dni cannot be blank");
-        }
-        if (command.birthday() == null) {
-            throw new ValidationException("Birthday cannot be blank");
-        }
-        if(command.gender().isBlank()) {
-            throw new ValidationException("Gender cannot be blank");
-        }
     }
 
     private void verifyValidateFieldsInCreatePlantOwner(CreatePlantOwnerCommand command) {
