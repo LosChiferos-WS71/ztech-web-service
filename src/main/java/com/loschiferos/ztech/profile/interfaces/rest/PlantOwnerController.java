@@ -29,7 +29,7 @@ public class PlantOwnerController {
     }
 
     @PostMapping
-    public ResponseEntity<PlantOwnerResource> createSupplier(@RequestBody CreatePlantOwnerResource resource) {
+    public ResponseEntity<PlantOwnerResource> createPlantOwner(@RequestBody CreatePlantOwnerResource resource) {
         var createPlantOwnerCommand = CreatePlantOwnerCommandFromResourceAssembler.toCommandFromResource(resource);
         var plantOwnerId = plantOwnerCommandService.handle(createPlantOwnerCommand);
         if (plantOwnerId == 0L) {

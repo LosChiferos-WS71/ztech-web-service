@@ -7,9 +7,9 @@ public record CreatePlantOwnerResource(
         String email,
         String password,
         String address,
-        int phone,
+        Long phone,
         String photo,
-        int dni,
+        Long dni,
         Date birthday,
         String gender
 ) {

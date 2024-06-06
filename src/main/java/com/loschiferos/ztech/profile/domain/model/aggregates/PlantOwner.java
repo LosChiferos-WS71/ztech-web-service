@@ -21,13 +21,14 @@ public class PlantOwner {
     @Embedded
     private Profile profile;
 
-    private int dni;
+    private Long dni;
 
+    @Temporal(TemporalType.DATE)
     private Date birthday;
 
     private String gender;
 
-    public PlantOwner(Profile profile, int dni, Date birthday, String gender) {
+    public PlantOwner(Profile profile, Long dni, Date birthday, String gender) {
         this.profile = profile;
         this.dni = dni;
         this.birthday = birthday;

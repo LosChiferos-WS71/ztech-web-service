@@ -6,5 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface PlantOwnerRepository extends JpaRepository<PlantOwner, Long> {
-    boolean existsByDni(int dni);
+    boolean existsByProfile_Email(String email);
+    boolean existsByDni(Long dni);
+    boolean existsByProfile_Phone(Long phone);
 }

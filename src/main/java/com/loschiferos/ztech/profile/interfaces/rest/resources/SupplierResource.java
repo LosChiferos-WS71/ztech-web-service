@@ -6,7 +6,7 @@ public record SupplierResource(
         String email,
         String password,
         String address,
-        int phone,
+        Long phone,
         String photo,
         String ruc
 ) {

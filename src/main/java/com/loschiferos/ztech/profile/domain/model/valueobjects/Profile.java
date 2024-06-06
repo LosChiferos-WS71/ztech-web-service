@@ -5,11 +5,11 @@ public record Profile(
     String email,
     String password,
     String address,
-    int phone,
+    Long phone,
     String photo
 ) {
     public Profile() {
-        this(null, null, null, null, 0, null);
+        this(null, null, null, null, null, null);
     }
 
     public Profile {
@@ -25,7 +25,7 @@ public record Profile(
         if (address == null || address.isBlank()) {
             throw new IllegalArgumentException("Address cannot be null or blank");
         }
-        if (phone == 0) {
+        if (phone == null) {
             throw new IllegalArgumentException("Phone cannot be null or blank");
         }
         if (photo == null || photo.isBlank()) {
