@@ -43,4 +43,8 @@ public class PlantType {
         Parameter parameter = new Parameter(this, type, value);
         this.parameterList.createParameter(parameter);
     }
+
+    public ParameterList getAllParameters() {
+        return parameterList;
+    }
 }

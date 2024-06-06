@@ -7,6 +7,7 @@ import jakarta.persistence.OneToMany;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Embeddable
 public class SensorList {
@@ -19,5 +20,9 @@ public class SensorList {
 
     public void createSensor(Sensor sensor) {
         sensors.add(sensor);
+    }
+
+    public List<Double> getAllInternalSerialNumbers() {
+        return sensors.stream().map(Sensor::getInternalSerialNumber).collect(Collectors.toList());
     }
 }

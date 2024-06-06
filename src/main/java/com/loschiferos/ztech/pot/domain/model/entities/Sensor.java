@@ -4,6 +4,7 @@ import com.loschiferos.ztech.pot.domain.model.aggregates.Flowerpot;
 import com.loschiferos.ztech.pot.domain.model.valueobjects.SensorType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
@@ -20,6 +21,7 @@ public class Sensor {
     @JoinColumn(name = "flowerpot_id")
     private Flowerpot flowerpot;
 
+    @Getter
     private Double internalSerialNumber;
 
     private SensorType type;

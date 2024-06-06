@@ -12,6 +12,10 @@ import com.loschiferos.ztech.shared.domain.exceptions.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
 @Service
 public class FlowerpotCommandServiceImpl implements FlowerpotCommandService {
 
@@ -47,6 +51,7 @@ public class FlowerpotCommandServiceImpl implements FlowerpotCommandService {
                 .orElseThrow(() -> new ResourceNotFoundException("Flowerpot not found"));
 
         validateCreateSensorCommand(command);
+        validateSensorExistence(command);
 
         var sensorType = SensorType.fromValue(command.type());
 
@@ -63,6 +68,23 @@ public class FlowerpotCommandServiceImpl implements FlowerpotCommandService {
         }
         if (command.value() == null || command.value().isNaN()) {
             throw new ValidationException("Value cannot be null");
+        }
+    }
+
+    private void validateSensorExistence(CreateSensorCommand command) {
+        var flowerpots = flowerpotRepository.findAll();
+
+        var allInternalSerialNumbers = flowerpots.stream()
+                .map(Flowerpot::getAllInternalSerialNumbers)
+                .flatMap(List::stream)
+                .toList();
+
+        if(!allInternalSerialNumbers.isEmpty()) {
+            for (var internalSerialNumber : allInternalSerialNumbers) {
+                if (Objects.equals(internalSerialNumber, command.internalSerialNumber())) {
+                    throw new ValidationException("Sensor with same internal serial number already exists");
+                }
+            }
         }
     }
 }

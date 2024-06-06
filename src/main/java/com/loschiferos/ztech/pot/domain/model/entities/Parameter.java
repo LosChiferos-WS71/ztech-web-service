@@ -4,6 +4,7 @@ import com.loschiferos.ztech.pot.domain.model.aggregates.PlantType;
 import com.loschiferos.ztech.pot.domain.model.valueobjects.ParameterType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -18,6 +19,7 @@ public class Parameter {
     @JoinColumn(name = "plant_type_id")
     private PlantType plantType;
 
+    @Getter
     private ParameterType parameterType;
 
     private Long value;

@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.apache.logging.log4j.util.Strings;
 
+import java.util.List;
+
 @Entity
 @Getter
 @AllArgsConstructor
@@ -44,5 +46,9 @@ public class Flowerpot {
     public void createSensor(Double internalSerialNumber, SensorType type, Double value) {
         Sensor sensor = new Sensor(internalSerialNumber, type, value, this);
         this.sensorList.createSensor(sensor);
+    }
+
+    public List<Double> getAllInternalSerialNumbers() {
+        return sensorList.getAllInternalSerialNumbers();
     }
 }

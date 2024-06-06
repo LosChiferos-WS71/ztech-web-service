@@ -7,6 +7,7 @@ import jakarta.persistence.OneToMany;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Embeddable
 public class ParameterList {
@@ -19,5 +20,9 @@ public class ParameterList {
 
     public void createParameter(Parameter parameter) {
         parameters.add(parameter);
+    }
+
+    public List<ParameterType> getAllParameters() {
+        return parameters.stream().map(Parameter::getParameterType).collect(Collectors.toList());
     }
 }
