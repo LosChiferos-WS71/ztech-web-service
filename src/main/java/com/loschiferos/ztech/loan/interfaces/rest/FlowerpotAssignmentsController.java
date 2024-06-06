@@ -30,19 +30,18 @@ public class FlowerpotAssignmentsController {
     }
 
     @PostMapping
-    public ResponseEntity<FlowerpotAssigmentResource> createFlowerpotAssigmentCommand(@RequestBody CreateFlowerpotAssigmentResource resource) {
-        var requestEnrollmentCommand = CreateFlowerpotAssigmentCommandFromResourceAssembler.toCommandFromResource(resource);
-        var enrollmentId = flowerpotAssigmentCommandService.handle(requestEnrollmentCommand);
-        if (enrollmentId == 0L) return ResponseEntity.badRequest().build();
-
-        var getEnrollmentByIdQuery = new GetFlowerpotAssigmentsByIdQuery(enrollmentId);
-        var enrollment = flowerpotAssigmentQueryService.handle(getEnrollmentByIdQuery);
-        if (enrollment.isEmpty()) return ResponseEntity.notFound().build();
-        var enrollmentResource = FlowerpotAssigmentResourceFromEntityAssembler.toResourceFromEntity(enrollment.get());
-        return new ResponseEntity<>(enrollmentResource, HttpStatus.CREATED);
-
+    public ResponseEntity<FlowerpotAssigmentResource> createFlowerpotAssigment(@RequestBody CreateFlowerpotAssigmentResource resource) {
+        var createFlowerpotAssigmentCommand = CreateFlowerpotAssigmentCommandFromResourceAssembler.toCommandFromResource(resource);
+        var flowerpotAssigmentId = flowerpotAssigmentCommandService.handle(createFlowerpotAssigmentCommand);
+        if (flowerpotAssigmentId == 0) {
+            return ResponseEntity.badRequest().build();
+        }
+        var getFlowerpotAssigmentByIdQuery = new GetFlowerpotAssigmentsByIdQuery(flowerpotAssigmentId);
+        var flowerpotAssigment = flowerpotAssigmentQueryService.handle(getFlowerpotAssigmentByIdQuery);
+        if (flowerpotAssigment.isEmpty()) return ResponseEntity.badRequest().build();
+        var flowerpotAssigmentResource = FlowerpotAssigmentResourceFromEntityAssembler.toResourceFromEntity(flowerpotAssigment.get());
+        return new ResponseEntity<>(flowerpotAssigmentResource, HttpStatus.CREATED);
     }
-
 
     @GetMapping
     public ResponseEntity<List<FlowerpotAssigmentResource>> getAllFlowerpotAssigment() {

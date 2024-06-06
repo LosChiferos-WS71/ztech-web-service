@@ -1,9 +1,6 @@
 package com.loschiferos.ztech.loan.domain.model.aggregates;
 
-
-import com.loschiferos.ztech.loan.domain.model.valueobjects.DateRange;
-import com.loschiferos.ztech.loan.domain.model.valueobjects.Name;
-import com.loschiferos.ztech.loan.domain.model.valueobjects.Photo;
+import com.loschiferos.ztech.loan.domain.model.valueobjects.*;
 import jakarta.persistence.*;
 import lombok.Getter;
 import org.springframework.data.domain.AbstractAggregateRoot;
@@ -17,6 +14,15 @@ public class FlowerpotAssigment extends AbstractAggregateRoot<FlowerpotAssigment
     private Long id;
 
     @Embedded
+    private PlantOwnerId plantOwnerId;
+
+    @Embedded
+    private FlowerpotId flowerpotId;
+
+    @Embedded
+    private PlantTypeId plantTypeId;
+
+    @Embedded
     private Name name;
 
     @Embedded
@@ -25,20 +31,22 @@ public class FlowerpotAssigment extends AbstractAggregateRoot<FlowerpotAssigment
     @Embedded
     private DateRange dateRange;
 
-    //@Getter
-    //@ManyToOne
-    //@JoinColumn(name = "flowerpot_metric_id")
-    //private FlowerpotMetric flowerpotMetric;
+    public FlowerpotAssigment() { }
 
-
-    public FlowerpotAssigment() {
-
-    }
-    public FlowerpotAssigment(String name, String photo, String starDate, String endDate) {
+    public FlowerpotAssigment(PlantOwnerId plantOwnerId, FlowerpotId flowerpotId, PlantTypeId plantTypeId, String name, String photo, String starDate, String endDate) {
+        this.plantOwnerId = plantOwnerId;
+        this.flowerpotId = flowerpotId;
+        this.plantTypeId = plantTypeId;
         this.name = new Name(name);
         this.photo = new Photo(photo);
         this.dateRange = new DateRange(starDate, endDate);
-       // this.flowerpotMetric = flowerpotMetric;
+    }
+
+    public FlowerpotAssigment(PlantOwnerId plantOwnerId, FlowerpotId flowerpotId, PlantTypeId plantTypeId) {
+        this();
+        this.plantOwnerId = plantOwnerId;
+        this.flowerpotId = flowerpotId;
+        this.plantTypeId = plantTypeId;
     }
 
     public String getName() {
@@ -52,6 +60,4 @@ public class FlowerpotAssigment extends AbstractAggregateRoot<FlowerpotAssigment
     public String getDateRange() {
         return this.dateRange.getDateRange();
     }
-
-
 }

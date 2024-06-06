@@ -6,26 +6,26 @@ import java.util.regex.Pattern;
 
 @Embeddable
 public class Photo {
-    private String url;
+    private String photoUrl;
 
     public Photo() {
-        this.url = null;
+        this.photoUrl = null;
     }
 
-    public Photo(String url) {
-        if (url == null || url.trim().isEmpty() || !isValidURL(url)) {
+    public Photo(String photoUrl) {
+        if (photoUrl == null || photoUrl.trim().isEmpty() || !isValidURL(photoUrl)) {
             throw new IllegalArgumentException("Invalid photo URL");
         }
-        this.url = url;
+        this.photoUrl = photoUrl;
     }
 
-    private boolean isValidURL(String url) {
+    private boolean isValidURL(String photoUrl) {
         // Use a simple regex to validate URL (this can be enhanced as per requirements)
         String regex = "^(https?|ftp)://[^\\s/$.?#].[^\\s]*$";
         Pattern pattern = Pattern.compile(regex);
-        return pattern.matcher(url).matches();
+        return pattern.matcher(photoUrl).matches();
     }
     public String getPhoto() {
-        return url;
+        return photoUrl;
     }
 }

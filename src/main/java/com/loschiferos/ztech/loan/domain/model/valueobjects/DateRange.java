@@ -9,9 +9,7 @@ public record DateRange (String startDate, String endDate){
         this(null, null);
     }
 
-
     public String getDateRange() {
         return "DateRange[startDate=" + startDate + ", endDate=" + endDate + "]";
     }
-
 }

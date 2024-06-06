@@ -6,6 +6,6 @@ import com.loschiferos.ztech.loan.interfaces.rest.resources.FlowerpotAssigmentRe
 
 public class FlowerpotAssigmentResourceFromEntityAssembler {
     public static FlowerpotAssigmentResource toResourceFromEntity(FlowerpotAssigment entity) {
-        return new FlowerpotAssigmentResource(entity.getId(), entity.getName(), entity.getPhoto(), entity.getDateRange());
+        return new FlowerpotAssigmentResource(entity.getName(), entity.getPhoto(), entity.getDateRange());
     }
 }
