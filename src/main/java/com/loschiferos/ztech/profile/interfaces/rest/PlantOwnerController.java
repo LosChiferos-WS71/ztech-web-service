@@ -57,13 +57,13 @@ public class PlantOwnerController {
         return ResponseEntity.ok(plantOwnerResource);
     }
 
-    @GetMapping("/email/{email}")
-    public ResponseEntity<PlantOwnerResource> getPlantOwnerByEmail(@PathVariable String email) {
+    @GetMapping("/email")
+    public ResponseEntity<PlantOwnerResource> getPlantOwnerByEmail(@RequestBody String email) {
         var getPlantOwnerByEmailQuery = new GetPlantOwnerByEmailQuery(email);
         var plantOwner = plantOwnerQueryService.handle(getPlantOwnerByEmailQuery);
         if (plantOwner.isEmpty()) return ResponseEntity.badRequest().build();
         var plantOwnerResource = PlantOwnerResourceFromEntityAssembler.toResourceFromEntity(plantOwner.get());
-        return ResponseEntity.ok(plantOwnerResource);
+        return new ResponseEntity<>(plantOwnerResource, HttpStatus.OK);
     }
 
     @GetMapping
