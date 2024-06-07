@@ -18,8 +18,8 @@ import java.util.List;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(value = "/api/v1/flowerpot-assignments", produces = APPLICATION_JSON_VALUE)
-@Tag(name = "flowerpot-assignments", description = "Flowerpot Assignments Management Endpoints")
+@RequestMapping(value = "/api/v1/flowerpot/assignments", produces = APPLICATION_JSON_VALUE)
+@Tag(name = "flowerpot/assignments", description = "Flowerpot Assignments Management Endpoints")
 public class FlowerpotAssignmentsController {
     private final FlowerpotAssigmentCommandService flowerpotAssigmentCommandService;
     private final FlowerpotAssigmentQueryService flowerpotAssigmentQueryService;
