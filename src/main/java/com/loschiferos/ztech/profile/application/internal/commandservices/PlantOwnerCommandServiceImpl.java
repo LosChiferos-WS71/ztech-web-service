@@ -21,7 +21,7 @@ public class PlantOwnerCommandServiceImpl implements PlantOwnerCommandService {
         verifyEmptyFieldsInCreatePlantOwner(command);
         verifyValidateFieldsInCreatePlantOwner(command);
 
-        Profile profile = new Profile(command.name(), command.email(), command.password(), command.address(), command.phone(), command.photo());
+        Profile profile = new Profile(command.name(), command.email(), command.address(), command.phone(), command.photo());
         PlantOwner plantOwner = new PlantOwner(profile, command.dni(), command.birthday(), command.gender());
         PlantOwner savedPlantOwner = plantOwnerRepository.save(plantOwner);
         return savedPlantOwner.getId();
@@ -33,9 +33,6 @@ public class PlantOwnerCommandServiceImpl implements PlantOwnerCommandService {
         }
         if (command.email().isBlank()) {
             throw new ValidationException("Email cannot be blank");
-        }
-        if (command.password().isBlank()) {
-            throw new ValidationException("Password cannot be blank");
         }
     }
 

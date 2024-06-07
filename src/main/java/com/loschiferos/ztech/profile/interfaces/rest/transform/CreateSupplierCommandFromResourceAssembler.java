@@ -5,6 +5,6 @@ import com.loschiferos.ztech.profile.interfaces.rest.resources.CreateSupplierRes
 
 public class CreateSupplierCommandFromResourceAssembler {
     public static CreateSupplierCommand toCommandFromResource(CreateSupplierResource resource) {
-        return new CreateSupplierCommand(resource.name(), resource.email(), resource.password(), resource.address(), resource.phone(), resource.photo(), resource.ruc());
+        return new CreateSupplierCommand(resource.name(), resource.email(), resource.address(), resource.phone(), resource.photo(), resource.ruc());
     }
 }
