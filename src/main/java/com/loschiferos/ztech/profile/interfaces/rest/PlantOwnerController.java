@@ -1,6 +1,7 @@
 package com.loschiferos.ztech.profile.interfaces.rest;
 
 import com.loschiferos.ztech.profile.domain.model.queries.GetAllPlantOwnersQuery;
+import com.loschiferos.ztech.profile.domain.model.queries.GetPlantOwnerByEmailQuery;
 import com.loschiferos.ztech.profile.domain.model.queries.GetPlantOwnerByIdQuery;
 import com.loschiferos.ztech.profile.domain.services.PlantOwnerCommandService;
 import com.loschiferos.ztech.profile.domain.services.PlantOwnerQueryService;
@@ -51,6 +52,15 @@ public class PlantOwnerController {
     public ResponseEntity<PlantOwnerResource> getPlantOwnerById(@PathVariable Long plantOwnerId) {
         var getPlantOwnerByIdQuery = new GetPlantOwnerByIdQuery(plantOwnerId);
         var plantOwner = plantOwnerQueryService.handle(getPlantOwnerByIdQuery);
+        if (plantOwner.isEmpty()) return ResponseEntity.badRequest().build();
+        var plantOwnerResource = PlantOwnerResourceFromEntityAssembler.toResourceFromEntity(plantOwner.get());
+        return ResponseEntity.ok(plantOwnerResource);
+    }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<PlantOwnerResource> getPlantOwnerByEmail(@PathVariable String email) {
+        var getPlantOwnerByEmailQuery = new GetPlantOwnerByEmailQuery(email);
+        var plantOwner = plantOwnerQueryService.handle(getPlantOwnerByEmailQuery);
         if (plantOwner.isEmpty()) return ResponseEntity.badRequest().build();
         var plantOwnerResource = PlantOwnerResourceFromEntityAssembler.toResourceFromEntity(plantOwner.get());
         return ResponseEntity.ok(plantOwnerResource);
