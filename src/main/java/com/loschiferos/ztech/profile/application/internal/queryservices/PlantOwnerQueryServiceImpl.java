@@ -2,6 +2,7 @@ package com.loschiferos.ztech.profile.application.internal.queryservices;
 
 import com.loschiferos.ztech.profile.domain.model.aggregates.PlantOwner;
 import com.loschiferos.ztech.profile.domain.model.queries.GetAllPlantOwnersQuery;
+import com.loschiferos.ztech.profile.domain.model.queries.GetPlantOwnerByEmailQuery;
 import com.loschiferos.ztech.profile.domain.model.queries.GetPlantOwnerByIdQuery;
 import com.loschiferos.ztech.profile.domain.services.PlantOwnerQueryService;
 import com.loschiferos.ztech.profile.infrastructure.persistence.jpa.repositories.PlantOwnerRepository;
@@ -26,5 +27,10 @@ public class PlantOwnerQueryServiceImpl implements PlantOwnerQueryService {
     @Override
     public List<PlantOwner> handle(GetAllPlantOwnersQuery query) {
         return plantOwnerRepository.findAll();
+    }
+
+    @Override
+    public Optional<PlantOwner> handle(GetPlantOwnerByEmailQuery query) {
+        return plantOwnerRepository.findByProfile_Email(query.email());
     }
 }

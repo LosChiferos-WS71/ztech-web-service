@@ -9,4 +9,5 @@ public interface PlantOwnerRepository extends JpaRepository<PlantOwner, Long> {
     boolean existsByProfile_Email(String email);
     boolean existsByDni(Long dni);
     boolean existsByProfile_Phone(Long phone);
+    Optional<PlantOwner> findByProfile_Email(String email);
 }
