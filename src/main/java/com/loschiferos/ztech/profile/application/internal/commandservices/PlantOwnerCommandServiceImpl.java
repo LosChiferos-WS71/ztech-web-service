@@ -43,19 +43,5 @@ public class PlantOwnerCommandServiceImpl implements PlantOwnerCommandService {
         if (plantOwnerRepository.existsByProfile_Email(command.email())) {
             throw new ValidationException("Plant owner with same email already exists");
         }
-        if (plantOwnerRepository.existsByDni(command.dni())) {
-            throw new ValidationException("Plant owner with same dni already exists");
-        }
-        if (command.phone() < 900000000 || command.phone() > 999999999) {
-            throw new ValidationException("Phone number is invalid");
-        }
-        if (plantOwnerRepository.existsByProfile_Phone(command.phone())) {
-            throw new ValidationException("Plant owner with same phone already exists");
-        }
-        if (!command.gender().equals("male")) {
-            if (!command.gender().equals("female")) {
-                throw new ValidationException("Gender is invalid");
-            }
-        }
     }
 }
