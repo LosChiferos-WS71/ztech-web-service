@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/v1/plant-owners")
+@RequestMapping("/api/v1/plant/owners")
 public class PlantOwnerController {
     private final PlantOwnerCommandService plantOwnerCommandService;
     private final PlantOwnerQueryService plantOwnerQueryService;
