@@ -20,7 +20,7 @@ public class SupplierCommandServiceImpl implements SupplierCommandService {
         if(supplierRepository.existsByRuc(command.ruc())) {
             throw new IllegalArgumentException("Supplier with same ruc already exists");
         }
-        Profile profile = new Profile(command.name(), command.email(), command.password(), command.address(), command.phone(), command.photo());
+        Profile profile = new Profile(command.name(), command.email(), command.address(), command.phone(), command.photo());
         Supplier supplier = new Supplier(profile, command.ruc());
         Supplier savedSupplier = supplierRepository.save(supplier);
         return savedSupplier.getId();

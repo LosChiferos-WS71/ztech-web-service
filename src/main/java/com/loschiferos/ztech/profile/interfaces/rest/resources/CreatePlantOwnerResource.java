@@ -5,7 +5,6 @@ import java.util.Date;
 public record CreatePlantOwnerResource(
         String name,
         String email,
-        String password,
         String address,
         Long phone,
         String photo,

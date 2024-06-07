@@ -5,6 +5,6 @@ import com.loschiferos.ztech.profile.interfaces.rest.resources.CreatePlantOwnerR
 
 public class CreatePlantOwnerCommandFromResourceAssembler {
     public static CreatePlantOwnerCommand toCommandFromResource(CreatePlantOwnerResource resource) {
-        return new CreatePlantOwnerCommand(resource.name(), resource.email(), resource.password(), resource.address(), resource.phone(), resource.photo(), resource.dni(), resource.birthday(), resource.gender());
+        return new CreatePlantOwnerCommand(resource.name(), resource.email(), resource.address(), resource.phone(), resource.photo(), resource.dni(), resource.birthday(), resource.gender());
     }
 }

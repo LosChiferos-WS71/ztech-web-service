@@ -6,7 +6,6 @@ public record PlantOwnerResource(
         Long id,
         String name,
         String email,
-        String password,
         String address,
         Long phone,
         String photo,
