@@ -2,6 +2,7 @@ package com.loschiferos.ztech.pot.interfaces.rest;
 
 import com.loschiferos.ztech.pot.domain.model.queries.GetAllPlantTypesQuery;
 import com.loschiferos.ztech.pot.domain.model.queries.GetPlantTypeByIdQuery;
+import com.loschiferos.ztech.pot.domain.model.queries.GetPlantTypeByNameQuery;
 import com.loschiferos.ztech.pot.domain.services.PlantTypeCommandService;
 import com.loschiferos.ztech.pot.domain.services.PlantTypeQueryService;
 import com.loschiferos.ztech.pot.interfaces.rest.resources.CreateParameterResource;
@@ -62,6 +63,17 @@ public class PlantTypeController {
     public ResponseEntity<PlantTypeResource> getPlantTypeById(@PathVariable Long plantTypeId) {
         var getPlantTypeByIdQuery = new GetPlantTypeByIdQuery(plantTypeId);
         var plantType = plantTypeQueryService.handle(getPlantTypeByIdQuery);
+        if(plantType.isEmpty()) {
+            throw new ResourceNotFoundException("Plant type not found");
+        }
+        var plantTypeResource = PlantTypeResourceFromEntityAssembler.toResourceFromEntity(plantType.get());
+        return ResponseEntity.ok(plantTypeResource);
+    }
+
+    @PostMapping("/name")
+    public ResponseEntity<PlantTypeResource> getPlantTypeByName(@RequestBody String plantTypeName) {
+        var getPlantTypeByNameQuery = new GetPlantTypeByNameQuery(plantTypeName);
+        var plantType = plantTypeQueryService.handle(getPlantTypeByNameQuery);
         if(plantType.isEmpty()) {
             throw new ResourceNotFoundException("Plant type not found");
         }

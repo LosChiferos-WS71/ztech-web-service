@@ -3,6 +3,7 @@ package com.loschiferos.ztech.pot.application.internal.queryservices;
 import com.loschiferos.ztech.pot.domain.model.aggregates.PlantType;
 import com.loschiferos.ztech.pot.domain.model.queries.GetAllPlantTypesQuery;
 import com.loschiferos.ztech.pot.domain.model.queries.GetPlantTypeByIdQuery;
+import com.loschiferos.ztech.pot.domain.model.queries.GetPlantTypeByNameQuery;
 import com.loschiferos.ztech.pot.domain.services.PlantTypeQueryService;
 import com.loschiferos.ztech.pot.infrastructure.persistance.jpa.repositories.PlantTypeRepository;
 import org.springframework.stereotype.Service;
@@ -27,5 +28,10 @@ public class PlantTypeQueryServiceImpl implements PlantTypeQueryService {
     @Override
     public List<PlantType> handle(GetAllPlantTypesQuery query) {
         return plantTypeRepository.findAll();
+    }
+
+    @Override
+    public Optional<PlantType> handle(GetPlantTypeByNameQuery query) {
+        return plantTypeRepository.findByName(query.plantTypeName());
     }
 }
