@@ -36,7 +36,7 @@ public class PlantType {
         this.parameterList = new ParameterList();
     }
 
-    public PlantType(String name, String description) {
+    public PlantType(String name, String photo, String description) {
         this();
         this.name = name;
         this.photo = photo;

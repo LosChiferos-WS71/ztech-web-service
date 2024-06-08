@@ -36,7 +36,7 @@ public class PlantTypeCommandServiceImpl implements PlantTypeCommandService {
             throw new ValidationException("Description cannot be empty");
         }
 
-        PlantType plantType = new PlantType(command.name(), command.description());
+        PlantType plantType = new PlantType(command.name(), command.photo(), command.description());
         PlantType savedPlantType = plantTypeRepository.save(plantType);
         return savedPlantType.getId();
     }
