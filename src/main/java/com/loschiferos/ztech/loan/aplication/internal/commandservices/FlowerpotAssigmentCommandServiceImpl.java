@@ -93,11 +93,8 @@ public class FlowerpotAssigmentCommandServiceImpl implements FlowerpotAssigmentC
         if (command.name() == null || command.name().isEmpty()) {
             throw new ValidationException("Name cannot be empty");
         }
-        if (command.startDate() == null || command.startDate().isEmpty()) {
-            throw new ValidationException("Start Date cannot be empty");
-        }
-        if (command.endDate() == null || command.endDate().isEmpty()) {
-            throw new ValidationException("End Date cannot be empty");
+        if (command.photo() == null || command.photo().isEmpty()) {
+            throw new ValidationException("Photo cannot be empty");
         }
     }
 }
