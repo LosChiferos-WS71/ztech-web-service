@@ -57,7 +57,7 @@ public class PlantOwnerController {
         return ResponseEntity.ok(plantOwnerResource);
     }
 
-    @GetMapping("/email")
+    @PostMapping("/email")
     public ResponseEntity<PlantOwnerResource> getPlantOwnerByEmail(@RequestBody String email) {
         var getPlantOwnerByEmailQuery = new GetPlantOwnerByEmailQuery(email);
         var plantOwner = plantOwnerQueryService.handle(getPlantOwnerByEmailQuery);
