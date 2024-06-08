@@ -59,7 +59,7 @@ public class FlowerpotController {
 
     @PostMapping("/code")
     public ResponseEntity<FlowerpotResource> getFlowerpotByCode(@RequestBody String code) {
-        var getFlowerpotByCodeQuery = new GetFlowerpotByCodeQuery(code);
+        var getFlowerpotByCodeQuery = new GetFlowerpotByCodeQuery(code.toLowerCase());
         var flowerpot = flowerpotQueryService.handle(getFlowerpotByCodeQuery);
         if(flowerpot.isEmpty()) {
             throw new ResourceNotFoundException("Flowerpot not found");
