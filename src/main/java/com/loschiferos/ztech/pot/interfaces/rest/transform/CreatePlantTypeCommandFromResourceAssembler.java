@@ -5,6 +5,6 @@ import com.loschiferos.ztech.pot.interfaces.rest.resources.CreatePlantTypeResour
 
 public class CreatePlantTypeCommandFromResourceAssembler {
     public static CreatePlantTypeCommand toCommandFromResource(CreatePlantTypeResource resource) {
-        return new CreatePlantTypeCommand(resource.name(), resource.description());
+        return new CreatePlantTypeCommand(resource.name(), resource.photo(), resource.description());
     }
 }

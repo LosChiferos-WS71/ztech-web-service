@@ -22,6 +22,8 @@ public class PlantType {
 
     private String name;
 
+    private String photo;
+
     private String description;
 
     @Embedded
@@ -29,6 +31,7 @@ public class PlantType {
 
     public PlantType() {
         this.name = Strings.EMPTY;
+        this.photo = Strings.EMPTY;
         this.description = Strings.EMPTY;
         this.parameterList = new ParameterList();
     }
@@ -36,6 +39,7 @@ public class PlantType {
     public PlantType(String name, String description) {
         this();
         this.name = name;
+        this.photo = photo;
         this.description = description;
     }
 
