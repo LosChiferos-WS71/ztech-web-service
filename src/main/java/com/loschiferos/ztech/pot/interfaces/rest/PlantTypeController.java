@@ -1,5 +1,6 @@
 package com.loschiferos.ztech.pot.interfaces.rest;
 
+import com.loschiferos.ztech.pot.domain.model.queries.GetAllPlantTypesQuery;
 import com.loschiferos.ztech.pot.domain.model.queries.GetPlantTypeByIdQuery;
 import com.loschiferos.ztech.pot.domain.services.PlantTypeCommandService;
 import com.loschiferos.ztech.pot.domain.services.PlantTypeQueryService;
@@ -14,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/plant/types")
@@ -42,6 +45,17 @@ public class PlantTypeController {
         }
         var plantTypeResource = PlantTypeResourceFromEntityAssembler.toResourceFromEntity(plantType.get());
         return new ResponseEntity<>(plantTypeResource, HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<PlantTypeResource>> getAllPlantTypes() {
+        var getAllPlantTypesQuery = new GetAllPlantTypesQuery();
+        var plantTypes = plantTypeQueryService.handle(getAllPlantTypesQuery);
+        if(plantTypes.isEmpty()) {
+            throw new ResourceNotFoundException("Plant types not found");
+        }
+        var plantTypeResources = plantTypes.stream().map(PlantTypeResourceFromEntityAssembler::toResourceFromEntity).toList();
+        return ResponseEntity.ok(plantTypeResources);
     }
 
     @GetMapping("/{plantTypeId}")
