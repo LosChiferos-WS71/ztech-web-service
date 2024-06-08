@@ -31,7 +31,7 @@ public class Flowerpot {
 
     public Flowerpot() {
         this.code = Strings.EMPTY;
-        this.active = false;
+        this.active = true;
         this.sensorsData = new SensorsData();
         this.sensorList = new SensorList();
     }
