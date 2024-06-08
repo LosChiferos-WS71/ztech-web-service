@@ -29,6 +29,9 @@ public class PlantTypeCommandServiceImpl implements PlantTypeCommandService {
         if (plantTypeRepository.existsByName(command.name())) {
             throw new ValidationException("PlantType with same name already exists");
         }
+        if (command.photo() == null || command.photo().isEmpty()) {
+            throw new ValidationException("Photo cannot be empty");
+        }
         if (command.description() == null || command.description().isEmpty()) {
             throw new ValidationException("Description cannot be empty");
         }
