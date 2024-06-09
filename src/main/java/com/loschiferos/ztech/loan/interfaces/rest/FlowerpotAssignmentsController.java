@@ -17,6 +17,7 @@ import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+@CrossOrigin(origins = "**" , maxAge = 3600)
 @RestController
 @RequestMapping(value = "/api/v1/flowerpot/assignments", produces = APPLICATION_JSON_VALUE)
 @Tag(name = "flowerpot/assignments", description = "Flowerpot Assignments Management Endpoints")
