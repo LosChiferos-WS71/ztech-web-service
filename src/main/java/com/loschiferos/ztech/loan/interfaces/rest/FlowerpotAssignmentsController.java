@@ -34,7 +34,7 @@ public class FlowerpotAssignmentsController {
     public ResponseEntity<FlowerpotAssigmentResource> createFlowerpotAssigment(@RequestBody CreateFlowerpotAssigmentResource resource) {
         var createFlowerpotAssigmentCommand = CreateFlowerpotAssigmentCommandFromResourceAssembler.toCommandFromResource(resource);
         var flowerpotAssigmentId = flowerpotAssigmentCommandService.handle(createFlowerpotAssigmentCommand);
-        if (flowerpotAssigmentId == 0) {
+        if (flowerpotAssigmentId == 0L) {
             return ResponseEntity.badRequest().build();
         }
         var getFlowerpotAssigmentByIdQuery = new GetFlowerpotAssigmentsByIdQuery(flowerpotAssigmentId);
