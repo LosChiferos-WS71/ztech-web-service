@@ -7,7 +7,7 @@ import org.springframework.data.domain.AbstractAggregateRoot;
 
 @Getter
 @Entity
-public class FlowerpotAssigment extends AbstractAggregateRoot<FlowerpotAssigment> {
+public class FlowerpotAssigment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
