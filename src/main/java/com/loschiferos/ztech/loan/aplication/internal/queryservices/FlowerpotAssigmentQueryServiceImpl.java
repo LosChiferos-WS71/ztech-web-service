@@ -5,12 +5,15 @@ import com.loschiferos.ztech.loan.domain.model.queries.GetAllFlowerpotAssigments
 import com.loschiferos.ztech.loan.domain.model.queries.GetAssigmentMetricsQuery;
 import com.loschiferos.ztech.loan.domain.model.queries.GetFlowerpotAssigmentsByIdQuery;
 import com.loschiferos.ztech.loan.domain.model.queries.GetFlowerpotIdsByPlantOwnerIdQuery;
+import com.loschiferos.ztech.loan.domain.model.valueobjects.FlowerpotId;
+import com.loschiferos.ztech.loan.domain.model.valueobjects.PlantOwnerId;
 import com.loschiferos.ztech.loan.domain.services.FlowerpotAssigmentQueryService;
 import com.loschiferos.ztech.loan.infrastructure.persistence.jpa.repositories.FlowerpotAssigmentRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class FlowerpotAssigmentQueryServiceImpl implements FlowerpotAssigmentQueryService {
@@ -32,6 +35,12 @@ public class FlowerpotAssigmentQueryServiceImpl implements FlowerpotAssigmentQue
 
     @Override
     public List<Long> handle(GetFlowerpotIdsByPlantOwnerIdQuery query) {
-        return flowerpotAssigmentRepository.findFlowerpotIdsByPlantOwnerId(query.plantOwnerId());
+        List<FlowerpotId> flowerpotIdsBeforeProcess = flowerpotAssigmentRepository.findFlowerpotIdsByPlantOwnerId(query.plantOwnerId());
+
+        List<Long> flowerpotIds = flowerpotIdsBeforeProcess.stream()
+                .map(FlowerpotId::flowerpotId)
+                .collect(Collectors.toList());
+
+        return flowerpotIds;
     }
 }
