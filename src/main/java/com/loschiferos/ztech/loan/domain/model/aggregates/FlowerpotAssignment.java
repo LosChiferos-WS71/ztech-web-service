@@ -3,11 +3,10 @@ package com.loschiferos.ztech.loan.domain.model.aggregates;
 import com.loschiferos.ztech.loan.domain.model.valueobjects.*;
 import jakarta.persistence.*;
 import lombok.Getter;
-import org.springframework.data.domain.AbstractAggregateRoot;
 
 @Getter
 @Entity
-public class FlowerpotAssigment {
+public class FlowerpotAssignment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,9 +30,9 @@ public class FlowerpotAssigment {
     @Embedded
     private DateRange dateRange;
 
-    public FlowerpotAssigment() { }
+    public FlowerpotAssignment() { }
 
-    public FlowerpotAssigment(PlantOwnerId plantOwnerId, FlowerpotId flowerpotId, PlantTypeId plantTypeId, String name, String photo, String starDate, String endDate) {
+    public FlowerpotAssignment(PlantOwnerId plantOwnerId, FlowerpotId flowerpotId, PlantTypeId plantTypeId, String name, String photo, String starDate, String endDate) {
         this.plantOwnerId = plantOwnerId;
         this.flowerpotId = flowerpotId;
         this.plantTypeId = plantTypeId;
@@ -42,7 +41,7 @@ public class FlowerpotAssigment {
         this.dateRange = new DateRange(starDate, endDate);
     }
 
-    public FlowerpotAssigment(PlantOwnerId plantOwnerId, FlowerpotId flowerpotId, PlantTypeId plantTypeId) {
+    public FlowerpotAssignment(PlantOwnerId plantOwnerId, FlowerpotId flowerpotId, PlantTypeId plantTypeId) {
         this();
         this.plantOwnerId = plantOwnerId;
         this.flowerpotId = flowerpotId;

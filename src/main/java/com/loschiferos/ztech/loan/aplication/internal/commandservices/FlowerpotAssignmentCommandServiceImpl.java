@@ -3,14 +3,14 @@ package com.loschiferos.ztech.loan.aplication.internal.commandservices;
 import com.loschiferos.ztech.loan.aplication.internal.outboundedservices.acl.ExternalFlowerpotService;
 import com.loschiferos.ztech.loan.aplication.internal.outboundedservices.acl.ExternalPlantOwnerService;
 import com.loschiferos.ztech.loan.aplication.internal.outboundedservices.acl.ExternalPlantTypeService;
-import com.loschiferos.ztech.loan.domain.model.aggregates.FlowerpotAssigment;
-import com.loschiferos.ztech.loan.domain.model.commands.CreateFlowerpotAssigmentCommand;
-import com.loschiferos.ztech.loan.domain.model.commands.RequestFlowerpotAssigmentCommand;
+import com.loschiferos.ztech.loan.domain.model.aggregates.FlowerpotAssignment;
+import com.loschiferos.ztech.loan.domain.model.commands.CreateFlowerpotAssignmentCommand;
+import com.loschiferos.ztech.loan.domain.model.commands.RequestFlowerpotAssignmentCommand;
 import com.loschiferos.ztech.loan.domain.model.valueobjects.FlowerpotId;
 import com.loschiferos.ztech.loan.domain.model.valueobjects.PlantOwnerId;
 import com.loschiferos.ztech.loan.domain.model.valueobjects.PlantTypeId;
-import com.loschiferos.ztech.loan.domain.services.FlowerpotAssigmentCommandService;
-import com.loschiferos.ztech.loan.infrastructure.persistence.jpa.repositories.FlowerpotAssigmentRepository;
+import com.loschiferos.ztech.loan.domain.services.FlowerpotAssignmentCommandService;
+import com.loschiferos.ztech.loan.infrastructure.persistence.jpa.repositories.FlowerpotAssignmentRepository;
 import com.loschiferos.ztech.shared.domain.exceptions.ResourceNotFoundException;
 import com.loschiferos.ztech.shared.domain.exceptions.ValidationException;
 import org.springframework.stereotype.Service;
@@ -23,54 +23,40 @@ import java.util.Optional;
  * It uses the EnrollmentRepository to save the Enrollment aggregate.
  */
 @Service
-public class FlowerpotAssigmentCommandServiceImpl implements FlowerpotAssigmentCommandService {
-    private final FlowerpotAssigmentRepository flowerpotAssigmentRepository;
+public class FlowerpotAssignmentCommandServiceImpl implements FlowerpotAssignmentCommandService {
+    private final FlowerpotAssignmentRepository flowerpotAssignmentRepository;
     private final ExternalPlantOwnerService externalPlantOwnerService;
     private final ExternalFlowerpotService externalFlowerpotService;
     private final ExternalPlantTypeService externalPlantTypeService;
 
-    //private final FlowerpotMetricRepository flowerpotMetricRepository;
-
-    public FlowerpotAssigmentCommandServiceImpl(FlowerpotAssigmentRepository flowerpotAssigmentRepository, ExternalPlantOwnerService externalPlantOwnerService, ExternalFlowerpotService externalFlowerpotService, ExternalPlantTypeService externalPlantTypeService) {
-        this.flowerpotAssigmentRepository = flowerpotAssigmentRepository;
-        //this.flowerpotMetricRepository = flowerpotMetricRepository;
+    public FlowerpotAssignmentCommandServiceImpl(FlowerpotAssignmentRepository flowerpotAssignmentRepository, ExternalPlantOwnerService externalPlantOwnerService, ExternalFlowerpotService externalFlowerpotService, ExternalPlantTypeService externalPlantTypeService) {
+        this.flowerpotAssignmentRepository = flowerpotAssignmentRepository;
         this.externalPlantOwnerService = externalPlantOwnerService;
         this.externalFlowerpotService = externalFlowerpotService;
         this.externalPlantTypeService = externalPlantTypeService;
     }
 
-
-    //@Override
-    //public Long handle(CreateFlowerpotAssigmentCommand command) {
-    //    FlowerpotMetric flowerpotMetric = flowerpotMetricRepository.findById(command.flowerpotMetricId())
-    //            .orElseThrow(() -> new RuntimeException("Student not found"));
-    //    var flowerpotAssigment = new FlowerpotAssigment(command.name(), command.photo(), command.startDate(),
-    //            command.endDate(), flowerpotMetric);
-    //    flowerpotAssigmentRepository.save(flowerpotAssigment);
-    //    return flowerpotAssigment.getId();
-    //}
-
     @Override
-    public Long handle(CreateFlowerpotAssigmentCommand command) {
+    public Long handle(CreateFlowerpotAssignmentCommand command) {
         var plantOwnerId = externalPlantOwnerService.fetchPlantOwnerIdById(command.plantOwnerId());
         var flowerpotId = externalFlowerpotService.fetchFlowerpotIdById(command.flowerpotId());
         var plantTypeId = externalPlantTypeService.fetchPlantTypeIdById(command.plantTypeId());
 
-        validationCreateFlowerpotAssigmentCommand(command, plantOwnerId, flowerpotId, plantTypeId);
+        validationCreateFlowerpotAssignmentCommand(command, plantOwnerId, flowerpotId, plantTypeId);
 
-        var flowerpotAssigment = new FlowerpotAssigment(plantOwnerId.get(), flowerpotId.get(), plantTypeId.get(), command.name(), command.photo(), command.startDate(),
+        var flowerpotAssignment = new FlowerpotAssignment(plantOwnerId.get(), flowerpotId.get(), plantTypeId.get(), command.name(), command.photo(), command.startDate(),
                 command.endDate());
 
-        flowerpotAssigmentRepository.save(flowerpotAssigment);
-        return flowerpotAssigment.getId();
+        flowerpotAssignmentRepository.save(flowerpotAssignment);
+        return flowerpotAssignment.getId();
     }
 
     @Override
-    public Long handle(RequestFlowerpotAssigmentCommand command) {
+    public Long handle(RequestFlowerpotAssignmentCommand command) {
         return null;
     }
 
-    private void validationCreateFlowerpotAssigmentCommand(CreateFlowerpotAssigmentCommand command, Optional<PlantOwnerId> plantOwnerId, Optional<FlowerpotId> flowerpotId, Optional<PlantTypeId> plantTypeId) {
+    private void validationCreateFlowerpotAssignmentCommand(CreateFlowerpotAssignmentCommand command, Optional<PlantOwnerId> plantOwnerId, Optional<FlowerpotId> flowerpotId, Optional<PlantTypeId> plantTypeId) {
         if(command.plantOwnerId().describeConstable().isEmpty()) {
             throw new ValidationException("Plant Owner Id cannot be empty");
         }
