@@ -2,10 +2,12 @@ package com.loschiferos.ztech.loan.domain.model.aggregates;
 
 import com.loschiferos.ztech.loan.domain.model.valueobjects.*;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @Entity
+@AllArgsConstructor
 public class FlowerpotAssignment {
 
     @Id
