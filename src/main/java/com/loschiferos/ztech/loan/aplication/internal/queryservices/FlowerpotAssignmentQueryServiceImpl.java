@@ -2,6 +2,7 @@ package com.loschiferos.ztech.loan.aplication.internal.queryservices;
 
 import com.loschiferos.ztech.loan.domain.model.aggregates.FlowerpotAssignment;
 import com.loschiferos.ztech.loan.domain.model.queries.GetAllFlowerpotAssignmentsQuery;
+import com.loschiferos.ztech.loan.domain.model.queries.GetFlowerpotAssignmentByFlowerpotId;
 import com.loschiferos.ztech.loan.domain.model.queries.GetFlowerpotAssignmentsByIdQuery;
 import com.loschiferos.ztech.loan.domain.model.queries.GetFlowerpotIdsByPlantOwnerIdQuery;
 import com.loschiferos.ztech.loan.domain.services.FlowerpotAssignmentQueryService;
@@ -39,5 +40,10 @@ public class FlowerpotAssignmentQueryServiceImpl implements FlowerpotAssignmentQ
                 .collect(Collectors.toList());
 
         return flowerpotIds;
+    }
+
+    @Override
+    public Optional<FlowerpotAssignment> handle(GetFlowerpotAssignmentByFlowerpotId query) {
+        return flowerpotAssignmentRepository.findByFlowerpotId(query.flowerpotId());
     }
 }

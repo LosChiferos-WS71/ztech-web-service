@@ -1,8 +1,10 @@
 package com.loschiferos.ztech.loan.interfaces.rest;
 
 import com.loschiferos.ztech.loan.domain.model.queries.GetAllFlowerpotAssignmentsQuery;
+import com.loschiferos.ztech.loan.domain.model.queries.GetFlowerpotAssignmentByFlowerpotId;
 import com.loschiferos.ztech.loan.domain.model.queries.GetFlowerpotAssignmentsByIdQuery;
 import com.loschiferos.ztech.loan.domain.model.queries.GetFlowerpotIdsByPlantOwnerIdQuery;
+import com.loschiferos.ztech.loan.domain.model.valueobjects.FlowerpotId;
 import com.loschiferos.ztech.loan.domain.model.valueobjects.PlantOwnerId;
 import com.loschiferos.ztech.loan.domain.services.FlowerpotAssignmentCommandService;
 import com.loschiferos.ztech.loan.domain.services.FlowerpotAssignmentQueryService;
@@ -10,6 +12,7 @@ import com.loschiferos.ztech.loan.interfaces.rest.resources.CreateFlowerpotAssig
 import com.loschiferos.ztech.loan.interfaces.rest.resources.FlowerpotAssignmentResource;
 import com.loschiferos.ztech.loan.interfaces.rest.transform.CreateFlowerpotAssignmentCommandFromResourceAssembler;
 import com.loschiferos.ztech.loan.interfaces.rest.transform.FlowerpotAssignmentResourceFromEntityAssembler;
+import com.loschiferos.ztech.shared.domain.exceptions.ResourceNotFoundException;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -70,5 +73,15 @@ public class FlowerpotAssignmentsController {
         var getFlowerpotIdsByPlantOwnerIdQuery = new GetFlowerpotIdsByPlantOwnerIdQuery(plantOwnerIdToRequest);
         var flowerpotIds = flowerpotAssignmentQueryService.handle(getFlowerpotIdsByPlantOwnerIdQuery);
         return ResponseEntity.ok(flowerpotIds);
+    }
+
+    @PostMapping("/flowerpotId")
+    public ResponseEntity<FlowerpotAssignmentResource> getFlowerpotAssignmentByFlowerpotId(@RequestBody Long flowerpotId) {
+        FlowerpotId flowerpotIdToRequest = new FlowerpotId(flowerpotId);
+        var getFlowerpotAssignmentByFlowerpotIdQuery = new GetFlowerpotAssignmentByFlowerpotId(flowerpotIdToRequest);
+        var flowerpotAssignment = flowerpotAssignmentQueryService.handle(getFlowerpotAssignmentByFlowerpotIdQuery);
+        if (flowerpotAssignment.isEmpty()) throw new ResourceNotFoundException("Flowerpot Assignment not found");
+        var flowerpotAssignmentResource = FlowerpotAssignmentResourceFromEntityAssembler.toResourceFromEntity(flowerpotAssignment.get());
+        return ResponseEntity.ok(flowerpotAssignmentResource);
     }
 }

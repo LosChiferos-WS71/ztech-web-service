@@ -2,6 +2,7 @@ package com.loschiferos.ztech.loan.domain.services;
 
 import com.loschiferos.ztech.loan.domain.model.aggregates.FlowerpotAssignment;
 import com.loschiferos.ztech.loan.domain.model.queries.GetAllFlowerpotAssignmentsQuery;
+import com.loschiferos.ztech.loan.domain.model.queries.GetFlowerpotAssignmentByFlowerpotId;
 import com.loschiferos.ztech.loan.domain.model.queries.GetFlowerpotAssignmentsByIdQuery;
 import com.loschiferos.ztech.loan.domain.model.queries.GetFlowerpotIdsByPlantOwnerIdQuery;
 
@@ -12,4 +13,5 @@ public interface FlowerpotAssignmentQueryService {
     Optional<FlowerpotAssignment> handle(GetFlowerpotAssignmentsByIdQuery query);
     List<FlowerpotAssignment> handle(GetAllFlowerpotAssignmentsQuery query);
     List<Long> handle(GetFlowerpotIdsByPlantOwnerIdQuery query);
+    Optional<FlowerpotAssignment> handle(GetFlowerpotAssignmentByFlowerpotId query);
 }
