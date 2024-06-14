@@ -4,6 +4,7 @@ import com.loschiferos.ztech.loan.domain.model.aggregates.FlowerpotAssigment;
 import com.loschiferos.ztech.loan.domain.model.queries.GetAllFlowerpotAssigmentsQuery;
 import com.loschiferos.ztech.loan.domain.model.queries.GetAssigmentMetricsQuery;
 import com.loschiferos.ztech.loan.domain.model.queries.GetFlowerpotAssigmentsByIdQuery;
+import com.loschiferos.ztech.loan.domain.model.queries.GetFlowerpotIdsByPlantOwnerIdQuery;
 import com.loschiferos.ztech.loan.domain.services.FlowerpotAssigmentQueryService;
 import com.loschiferos.ztech.loan.infrastructure.persistence.jpa.repositories.FlowerpotAssigmentRepository;
 import org.springframework.stereotype.Service;
@@ -29,9 +30,8 @@ public class FlowerpotAssigmentQueryServiceImpl implements FlowerpotAssigmentQue
         return flowerpotAssigmentRepository.findAll();
     }
 
-    //@Override
-    //public List<FlowerpotAssigment> handle(GetAssigmentMetricsQuery query) {
-    //    return flowerpotAssigmentRepository.findAllByFlowerpotMetricId(query.flowerpotMetricId());
-    //}
-
+    @Override
+    public List<Long> handle(GetFlowerpotIdsByPlantOwnerIdQuery query) {
+        return flowerpotAssigmentRepository.findFlowerpotIdsByPlantOwnerId(query.plantOwnerId());
+    }
 }

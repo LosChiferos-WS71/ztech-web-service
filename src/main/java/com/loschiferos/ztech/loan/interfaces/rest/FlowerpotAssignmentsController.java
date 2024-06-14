@@ -2,6 +2,8 @@ package com.loschiferos.ztech.loan.interfaces.rest;
 
 import com.loschiferos.ztech.loan.domain.model.queries.GetAllFlowerpotAssigmentsQuery;
 import com.loschiferos.ztech.loan.domain.model.queries.GetFlowerpotAssigmentsByIdQuery;
+import com.loschiferos.ztech.loan.domain.model.queries.GetFlowerpotIdsByPlantOwnerIdQuery;
+import com.loschiferos.ztech.loan.domain.model.valueobjects.PlantOwnerId;
 import com.loschiferos.ztech.loan.domain.services.FlowerpotAssigmentCommandService;
 import com.loschiferos.ztech.loan.domain.services.FlowerpotAssigmentQueryService;
 import com.loschiferos.ztech.loan.interfaces.rest.resources.CreateFlowerpotAssigmentResource;
@@ -60,5 +62,13 @@ public class FlowerpotAssignmentsController {
         if (flowerpotAssigment.isEmpty()) return ResponseEntity.notFound().build();
         var flowerpotAssigmentResource = FlowerpotAssigmentResourceFromEntityAssembler.toResourceFromEntity(flowerpotAssigment.get());
         return ResponseEntity.ok(flowerpotAssigmentResource);
+    }
+
+    @GetMapping("/plant/owner/{plantOwnerId}")
+    public ResponseEntity<List<Long>> getFlowerpotIdsByPlantOwnerId(@PathVariable Long plantOwnerId) {
+        PlantOwnerId plantOwnerIdToRequest = new PlantOwnerId(plantOwnerId);
+        var getFlowerpotIdsByPlantOwnerIdQuery = new GetFlowerpotIdsByPlantOwnerIdQuery(plantOwnerIdToRequest);
+        var flowerpotIds = flowerpotAssigmentQueryService.handle(getFlowerpotIdsByPlantOwnerIdQuery);
+        return ResponseEntity.ok(flowerpotIds);
     }
 }
