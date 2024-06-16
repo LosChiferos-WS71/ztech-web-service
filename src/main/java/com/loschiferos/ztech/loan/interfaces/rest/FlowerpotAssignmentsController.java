@@ -1,9 +1,6 @@
 package com.loschiferos.ztech.loan.interfaces.rest;
 
-import com.loschiferos.ztech.loan.domain.model.queries.GetAllFlowerpotAssignmentsQuery;
-import com.loschiferos.ztech.loan.domain.model.queries.GetFlowerpotAssignmentByFlowerpotId;
-import com.loschiferos.ztech.loan.domain.model.queries.GetFlowerpotAssignmentsByIdQuery;
-import com.loschiferos.ztech.loan.domain.model.queries.GetFlowerpotIdsByPlantOwnerIdQuery;
+import com.loschiferos.ztech.loan.domain.model.queries.*;
 import com.loschiferos.ztech.loan.domain.model.valueobjects.FlowerpotId;
 import com.loschiferos.ztech.loan.domain.model.valueobjects.PlantOwnerId;
 import com.loschiferos.ztech.loan.domain.services.FlowerpotAssignmentCommandService;
@@ -83,5 +80,13 @@ public class FlowerpotAssignmentsController {
         if (flowerpotAssignment.isEmpty()) throw new ResourceNotFoundException("Flowerpot Assignment not found");
         var flowerpotAssignmentResource = FlowerpotAssignmentResourceFromEntityAssembler.toResourceFromEntity(flowerpotAssignment.get());
         return ResponseEntity.ok(flowerpotAssignmentResource);
+    }
+
+    @PostMapping("/plant/owner/plantTypeIds")
+    public ResponseEntity<List<Long>> getPlantTypeIdsByPlantOwnerId(@RequestBody Long plantOwnerId) {
+        PlantOwnerId plantOwnerIdToRequest = new PlantOwnerId(plantOwnerId);
+        var getPlantTypeIdsByPlantOwnerIdQuery = new GetPlantTypeIdsByPlantOwnerIdQuery(plantOwnerIdToRequest);
+        var plantTypeIds = flowerpotAssignmentQueryService.handle(getPlantTypeIdsByPlantOwnerIdQuery);
+        return ResponseEntity.ok(plantTypeIds);
     }
 }

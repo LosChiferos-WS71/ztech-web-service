@@ -1,10 +1,7 @@
 package com.loschiferos.ztech.loan.aplication.internal.queryservices;
 
 import com.loschiferos.ztech.loan.domain.model.aggregates.FlowerpotAssignment;
-import com.loschiferos.ztech.loan.domain.model.queries.GetAllFlowerpotAssignmentsQuery;
-import com.loschiferos.ztech.loan.domain.model.queries.GetFlowerpotAssignmentByFlowerpotId;
-import com.loschiferos.ztech.loan.domain.model.queries.GetFlowerpotAssignmentsByIdQuery;
-import com.loschiferos.ztech.loan.domain.model.queries.GetFlowerpotIdsByPlantOwnerIdQuery;
+import com.loschiferos.ztech.loan.domain.model.queries.*;
 import com.loschiferos.ztech.loan.domain.services.FlowerpotAssignmentQueryService;
 import com.loschiferos.ztech.loan.infrastructure.persistence.jpa.repositories.FlowerpotAssignmentRepository;
 import org.springframework.stereotype.Service;
@@ -45,5 +42,16 @@ public class FlowerpotAssignmentQueryServiceImpl implements FlowerpotAssignmentQ
     @Override
     public Optional<FlowerpotAssignment> handle(GetFlowerpotAssignmentByFlowerpotId query) {
         return flowerpotAssignmentRepository.findByFlowerpotId(query.flowerpotId());
+    }
+
+    @Override
+    public List<Long> handle(GetPlantTypeIdsByPlantOwnerIdQuery query) {
+        List<FlowerpotAssignment> flowerpotAssignmentsByPlantOwnerId = flowerpotAssignmentRepository.findByPlantOwnerId(query.plantOwnerId());
+
+        List<Long> plantTypeIds = flowerpotAssignmentsByPlantOwnerId.stream()
+                .map(assignment -> assignment.getPlantTypeId().plantTypeId())
+                .collect(Collectors.toList());
+
+        return plantTypeIds;
     }
 }
