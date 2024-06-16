@@ -82,7 +82,7 @@ public class PlantTypeController {
         return ResponseEntity.ok(plantTypeResource);
     }
 
-    @PostMapping("/{plantTypeId}/parameters")
+    @PostMapping("/parameters")
     public ResponseEntity<Void> createParameter(@RequestBody CreateParameterResource resource) {
         var addParameterCommand = CreateParameterCommandFromResourceAssembler.toCommandFromResource(resource);
         plantTypeCommandService.handle(addParameterCommand);
