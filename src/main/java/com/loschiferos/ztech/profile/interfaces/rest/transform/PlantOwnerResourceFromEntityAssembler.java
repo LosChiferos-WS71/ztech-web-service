@@ -5,6 +5,6 @@ import com.loschiferos.ztech.profile.interfaces.rest.resources.PlantOwnerResourc
 
 public class PlantOwnerResourceFromEntityAssembler {
     public static PlantOwnerResource toResourceFromEntity(PlantOwner entity) {
-        return new PlantOwnerResource(entity.getId(), entity.getProfile().name(), entity.getProfile().email(), entity.getProfile().address(), entity.getProfile().phone(), entity.getProfile().photo(), entity.getDni(), entity.getBirthday(), entity.getGender());
+        return new PlantOwnerResource(entity.getId(), entity.getProfile().name(), entity.getProfile().email(), entity.getProfile().address(), entity.getProfile().phone(), entity.getProfile().photo(), entity.getDni(), entity.getBirthday().toString(), entity.getGender());
     }
 }

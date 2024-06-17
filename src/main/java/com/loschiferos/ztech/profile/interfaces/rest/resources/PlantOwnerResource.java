@@ -10,7 +10,7 @@ public record PlantOwnerResource(
         Long phone,
         String photo,
         Long dni,
-        Date birthday,
+        String birthday,
         String gender
 ) {
 }
