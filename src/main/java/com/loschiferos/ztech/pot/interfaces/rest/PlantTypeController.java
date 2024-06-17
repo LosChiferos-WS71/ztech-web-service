@@ -9,9 +9,11 @@ import com.loschiferos.ztech.pot.domain.services.PlantTypeCommandService;
 import com.loschiferos.ztech.pot.domain.services.PlantTypeQueryService;
 import com.loschiferos.ztech.pot.interfaces.rest.resources.CreateParameterResource;
 import com.loschiferos.ztech.pot.interfaces.rest.resources.CreatePlantTypeResource;
+import com.loschiferos.ztech.pot.interfaces.rest.resources.ParameterResource;
 import com.loschiferos.ztech.pot.interfaces.rest.resources.PlantTypeResource;
 import com.loschiferos.ztech.pot.interfaces.rest.transform.CreateParameterCommandFromResourceAssembler;
 import com.loschiferos.ztech.pot.interfaces.rest.transform.CreatePlantTypeCommandFromResourceAssembler;
+import com.loschiferos.ztech.pot.interfaces.rest.transform.ParameterResourceFromEntityAssembler;
 import com.loschiferos.ztech.pot.interfaces.rest.transform.PlantTypeResourceFromEntityAssembler;
 import com.loschiferos.ztech.shared.domain.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -92,12 +94,13 @@ public class PlantTypeController {
     }
 
     @GetMapping("/{plantTypeId}/parameters")
-    public ResponseEntity<List<Parameter>> getParametersByPlantTypeId(@PathVariable Long plantTypeId) {
+    public ResponseEntity<List<ParameterResource>> getParametersByPlantTypeId(@PathVariable Long plantTypeId) {
         var getParametersByPlantTypeIdQuery = new GetParametersByPlantTypeIdQuery(plantTypeId);
         var parameters = plantTypeQueryService.handle(getParametersByPlantTypeIdQuery);
         if (parameters == null) {
             throw new ResourceNotFoundException("Parameters not found");
         }
-        return ResponseEntity.ok(parameters);
+        var parameterResources = parameters.stream().map(ParameterResourceFromEntityAssembler::toResourceFromEntity).toList();
+        return ResponseEntity.ok(parameterResources);
     }
 }

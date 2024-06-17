@@ -22,6 +22,7 @@ public class Parameter {
     @Getter
     private ParameterType parameterType;
 
+    @Getter
     private Long value;
 
     public Parameter(PlantType plantType, ParameterType parameterType, Long value) {
