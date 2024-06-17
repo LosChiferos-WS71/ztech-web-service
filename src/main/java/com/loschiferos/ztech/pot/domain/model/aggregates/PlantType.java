@@ -12,6 +12,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.apache.logging.log4j.util.Strings;
 
+import java.util.List;
+
 @Getter
 @Entity
 @AllArgsConstructor
@@ -52,7 +54,7 @@ public class PlantType {
         this.parameterList.createParameter(parameter);
     }
 
-    public ParameterList getAllParameters() {
-        return parameterList;
+    public List<Parameter> getAllParameters() {
+        return parameterList.getAllParameters();
     }
 }

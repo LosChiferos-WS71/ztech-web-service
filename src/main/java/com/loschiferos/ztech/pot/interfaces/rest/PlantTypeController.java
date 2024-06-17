@@ -1,6 +1,8 @@
 package com.loschiferos.ztech.pot.interfaces.rest;
 
+import com.loschiferos.ztech.pot.domain.model.entities.Parameter;
 import com.loschiferos.ztech.pot.domain.model.queries.GetAllPlantTypesQuery;
+import com.loschiferos.ztech.pot.domain.model.queries.GetParametersByPlantTypeIdQuery;
 import com.loschiferos.ztech.pot.domain.model.queries.GetPlantTypeByIdQuery;
 import com.loschiferos.ztech.pot.domain.model.queries.GetPlantTypeByNameQuery;
 import com.loschiferos.ztech.pot.domain.services.PlantTypeCommandService;
@@ -87,5 +89,15 @@ public class PlantTypeController {
         var addParameterCommand = CreateParameterCommandFromResourceAssembler.toCommandFromResource(resource);
         plantTypeCommandService.handle(addParameterCommand);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping("/{plantTypeId}/parameters")
+    public ResponseEntity<List<Parameter>> getParametersByPlantTypeId(@PathVariable Long plantTypeId) {
+        var getParametersByPlantTypeIdQuery = new GetParametersByPlantTypeIdQuery(plantTypeId);
+        var parameters = plantTypeQueryService.handle(getParametersByPlantTypeIdQuery);
+        if (parameters == null) {
+            throw new ResourceNotFoundException("Parameters not found");
+        }
+        return ResponseEntity.ok(parameters);
     }
 }

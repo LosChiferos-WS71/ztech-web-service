@@ -51,8 +51,8 @@ public class PlantTypeCommandServiceImpl implements PlantTypeCommandService {
 
         validateCreateParameterCommand(command);
 
-        if (plantType.getParameterList().getAllParameters() != null) {
-            for (var parameter : plantType.getParameterList().getAllParameters()) {
+        if (plantType.getParameterList().getAllParameterTypes() != null) {
+            for (var parameter : plantType.getParameterList().getAllParameterTypes()) {
                 if (parameter.equals(ParameterType.fromValue(command.type()))) {
                     throw new ValidationException("Parameter with same type already exists");
                 }
