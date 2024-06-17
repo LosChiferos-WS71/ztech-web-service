@@ -7,14 +7,8 @@ import com.loschiferos.ztech.pot.domain.model.queries.GetPlantTypeByIdQuery;
 import com.loschiferos.ztech.pot.domain.model.queries.GetPlantTypeByNameQuery;
 import com.loschiferos.ztech.pot.domain.services.PlantTypeCommandService;
 import com.loschiferos.ztech.pot.domain.services.PlantTypeQueryService;
-import com.loschiferos.ztech.pot.interfaces.rest.resources.CreateParameterResource;
-import com.loschiferos.ztech.pot.interfaces.rest.resources.CreatePlantTypeResource;
-import com.loschiferos.ztech.pot.interfaces.rest.resources.ParameterResource;
-import com.loschiferos.ztech.pot.interfaces.rest.resources.PlantTypeResource;
-import com.loschiferos.ztech.pot.interfaces.rest.transform.CreateParameterCommandFromResourceAssembler;
-import com.loschiferos.ztech.pot.interfaces.rest.transform.CreatePlantTypeCommandFromResourceAssembler;
-import com.loschiferos.ztech.pot.interfaces.rest.transform.ParameterResourceFromEntityAssembler;
-import com.loschiferos.ztech.pot.interfaces.rest.transform.PlantTypeResourceFromEntityAssembler;
+import com.loschiferos.ztech.pot.interfaces.rest.resources.*;
+import com.loschiferos.ztech.pot.interfaces.rest.transform.*;
 import com.loschiferos.ztech.shared.domain.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -102,5 +96,24 @@ public class PlantTypeController {
         }
         var parameterResources = parameters.stream().map(ParameterResourceFromEntityAssembler::toResourceFromEntity).toList();
         return ResponseEntity.ok(parameterResources);
+    }
+
+    @GetMapping("/{plantTypeId}/details")
+    public ResponseEntity<PlantTypeDetailsResource> getPlantTypeDetails(@PathVariable Long plantTypeId) {
+        var getPlantTypeByIdQuery = new GetPlantTypeByIdQuery(plantTypeId);
+        var plantType = plantTypeQueryService.handle(getPlantTypeByIdQuery);
+        if (plantType.isEmpty()) {
+            throw new ResourceNotFoundException("Plant type not found");
+        }
+        var plantTypeResource = PlantTypeResourceFromEntityAssembler.toResourceFromEntity(plantType.get());
+        var getParametersByPlantTypeIdQuery = new GetParametersByPlantTypeIdQuery(plantTypeId);
+        var parameters = plantTypeQueryService.handle(getParametersByPlantTypeIdQuery);
+        if (parameters == null) {
+            throw new ResourceNotFoundException("Parameters not found");
+        }
+        var parameterResources = parameters.stream().map(ParameterResourceFromEntityAssembler::toResourceFromEntity).toList();
+        var plantTypeDetailsResource = PlantTypeDetailsResourceAssembler.toResource(plantTypeResource, parameterResources);
+
+        return ResponseEntity.ok(plantTypeDetailsResource);
     }
 }
