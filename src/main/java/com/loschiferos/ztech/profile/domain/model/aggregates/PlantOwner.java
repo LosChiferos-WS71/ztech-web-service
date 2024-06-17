@@ -34,4 +34,12 @@ public class PlantOwner {
         this.birthday = birthday;
         this.gender = gender;
     }
+
+    public PlantOwner updatePlantOwner(String name, String email, String address, Long phone, String photo, Long dni, Date birthday, String gender) {
+        this.profile = new Profile(name, email, address, phone, photo);
+        this.dni = dni;
+        this.birthday = birthday;
+        this.gender = gender;
+        return this;
+    }
 }
