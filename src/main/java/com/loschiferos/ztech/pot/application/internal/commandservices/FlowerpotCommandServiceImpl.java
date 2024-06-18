@@ -50,40 +50,19 @@ public class FlowerpotCommandServiceImpl implements FlowerpotCommandService {
                 .orElseThrow(() -> new ResourceNotFoundException("Flowerpot not found"));
 
         validateCreateSensorCommand(command);
-        validateSensorExistence(command);
 
         var sensorType = SensorType.fromValue(command.type());
 
-        flowerpot.createSensor(command.internalSerialNumber(), sensorType, command.value());
+        flowerpot.createSensor(sensorType, command.value());
         flowerpotRepository.save(flowerpot);
     }
 
     private void validateCreateSensorCommand(CreateSensorCommand command) {
-        if (command.internalSerialNumber() == null || command.internalSerialNumber().isNaN()) {
-            throw new ValidationException("Internal Serial Number cannot be empty");
-        }
         if (command.type() == null) {
             throw new ValidationException("Type cannot be null");
         }
         if (command.value() == null || command.value().isNaN()) {
             throw new ValidationException("Value cannot be null");
-        }
-    }
-
-    private void validateSensorExistence(CreateSensorCommand command) {
-        var flowerpots = flowerpotRepository.findAll();
-
-        var allInternalSerialNumbers = flowerpots.stream()
-                .map(Flowerpot::getAllInternalSerialNumbers)
-                .flatMap(List::stream)
-                .toList();
-
-        if(!allInternalSerialNumbers.isEmpty()) {
-            for (var internalSerialNumber : allInternalSerialNumbers) {
-                if (Objects.equals(internalSerialNumber, command.internalSerialNumber())) {
-                    throw new ValidationException("Sensor with same internal serial number already exists");
-                }
-            }
         }
     }
 }

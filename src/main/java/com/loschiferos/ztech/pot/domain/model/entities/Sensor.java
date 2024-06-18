@@ -21,17 +21,13 @@ public class Sensor {
     @JoinColumn(name = "flowerpot_id")
     private Flowerpot flowerpot;
 
-    @Getter
-    private Double internalSerialNumber;
-
     private SensorType type;
 
     private Double value;
 
     private Timestamp timestamp;
 
-    public Sensor(Double internalSerialNumber, SensorType type, Double value, Flowerpot flowerpot) {
-        this.internalSerialNumber = internalSerialNumber;
+    public Sensor(SensorType type, Double value, Flowerpot flowerpot) {
         this.type = type;
         this.value = value;
         this.timestamp = new Timestamp(System.currentTimeMillis());
