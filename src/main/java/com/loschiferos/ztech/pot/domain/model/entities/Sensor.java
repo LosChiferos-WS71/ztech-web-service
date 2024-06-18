@@ -23,11 +23,11 @@ public class Sensor {
 
     private SensorType type;
 
-    private Double value;
+    private Long value;
 
     private Timestamp timestamp;
 
-    public Sensor(SensorType type, Double value, Flowerpot flowerpot) {
+    public Sensor(SensorType type, Long value, Flowerpot flowerpot) {
         this.type = type;
         this.value = value;
         this.timestamp = new Timestamp(System.currentTimeMillis());

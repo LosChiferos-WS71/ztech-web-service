@@ -43,8 +43,16 @@ public class Flowerpot {
         this.sensorsData = sensorsData;
     }
 
-    public void createSensor(SensorType type, Double value) {
+    public void createSensor(SensorType type, Long value) {
         Sensor sensor = new Sensor(type, value, this);
         this.sensorList.createSensor(sensor);
+
+        if(type == SensorType.TEMPERATURE) {
+            this.sensorsData.setLastTemperature(value);
+        } else if(type == SensorType.HUMIDITY) {
+            this.sensorsData.setLastHumidity(value);
+        } else if(type == SensorType.SUNLIGHT) {
+            this.sensorsData.setLastSunlight(value);
+        }
     }
 }

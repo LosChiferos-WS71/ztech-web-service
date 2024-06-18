@@ -61,7 +61,7 @@ public class FlowerpotCommandServiceImpl implements FlowerpotCommandService {
         if (command.type() == null) {
             throw new ValidationException("Type cannot be null");
         }
-        if (command.value() == null || command.value().isNaN()) {
+        if (command.value() == null) {
             throw new ValidationException("Value cannot be null");
         }
     }
