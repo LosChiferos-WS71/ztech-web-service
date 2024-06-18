@@ -68,7 +68,7 @@ public class FlowerpotController {
         return ResponseEntity.ok(flowerpotResource);
     }
 
-    @PostMapping("/{flowerpotId}/sensors")
+    @PostMapping("/sensors")
     public ResponseEntity<Void> createSensor(@RequestBody CreateSensorResource resource) {
         var addSensorCommand = CreateSensorCommandFromResourceAssembler.toCommandFromResource(resource);
         flowerpotCommandService.handle(addSensorCommand);
