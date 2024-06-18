@@ -21,8 +21,4 @@ public class SensorList {
     public void createSensor(Sensor sensor) {
         sensors.add(sensor);
     }
-
-    public List<Double> getAllInternalSerialNumbers() {
-        return sensors.stream().map(Sensor::getInternalSerialNumber).collect(Collectors.toList());
-    }
 }

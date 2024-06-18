@@ -47,8 +47,4 @@ public class Flowerpot {
         Sensor sensor = new Sensor(type, value, this);
         this.sensorList.createSensor(sensor);
     }
-
-    public List<Double> getAllInternalSerialNumbers() {
-        return sensorList.getAllInternalSerialNumbers();
-    }
 }
