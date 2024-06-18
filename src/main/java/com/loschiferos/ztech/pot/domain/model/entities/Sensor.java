@@ -21,10 +21,13 @@ public class Sensor {
     @JoinColumn(name = "flowerpot_id")
     private Flowerpot flowerpot;
 
+    @Getter
     private SensorType type;
 
+    @Getter
     private Long value;
 
+    @Getter
     private Timestamp timestamp;
 
     public Sensor(SensorType type, Long value, Flowerpot flowerpot) {

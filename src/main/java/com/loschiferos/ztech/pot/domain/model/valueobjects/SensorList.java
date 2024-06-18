@@ -21,4 +21,8 @@ public class SensorList {
     public void createSensor(Sensor sensor) {
         sensors.add(sensor);
     }
+
+    public List<Sensor> getAllSensors() {
+        return sensors;
+    }
 }

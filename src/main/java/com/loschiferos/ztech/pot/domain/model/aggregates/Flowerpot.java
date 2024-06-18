@@ -55,4 +55,8 @@ public class Flowerpot {
             this.sensorsData.setLastSunlight(value);
         }
     }
+
+    public List<Sensor> getAllSensors() {
+        return sensorList.getAllSensors();
+    }
 }

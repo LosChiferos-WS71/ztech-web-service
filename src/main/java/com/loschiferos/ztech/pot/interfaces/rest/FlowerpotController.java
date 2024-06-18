@@ -2,19 +2,25 @@ package com.loschiferos.ztech.pot.interfaces.rest;
 
 import com.loschiferos.ztech.pot.domain.model.queries.GetFlowerpotByCodeQuery;
 import com.loschiferos.ztech.pot.domain.model.queries.GetFlowerpotByIdQuery;
+import com.loschiferos.ztech.pot.domain.model.queries.GetSensorsByFlowerpotIdQuery;
+import com.loschiferos.ztech.pot.domain.model.valueobjects.SensorType;
 import com.loschiferos.ztech.pot.domain.services.FlowerpotCommandService;
 import com.loschiferos.ztech.pot.domain.services.FlowerpotQueryService;
 import com.loschiferos.ztech.pot.interfaces.rest.resources.CreateFlowerpotResource;
 import com.loschiferos.ztech.pot.interfaces.rest.resources.CreateSensorResource;
 import com.loschiferos.ztech.pot.interfaces.rest.resources.FlowerpotResource;
+import com.loschiferos.ztech.pot.interfaces.rest.resources.SensorResource;
 import com.loschiferos.ztech.pot.interfaces.rest.transform.CreateFlowerpotCommandFromResourceAssembler;
 import com.loschiferos.ztech.pot.interfaces.rest.transform.CreateSensorCommandFromResourceAssembler;
 import com.loschiferos.ztech.pot.interfaces.rest.transform.FlowerpotResourceFromEntityAssembler;
+import com.loschiferos.ztech.pot.interfaces.rest.transform.SensorResourceFromEntityAssembler;
 import com.loschiferos.ztech.shared.domain.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin(origins = "**" , maxAge = 3600)
 @RestController
@@ -73,5 +79,17 @@ public class FlowerpotController {
         var addSensorCommand = CreateSensorCommandFromResourceAssembler.toCommandFromResource(resource);
         flowerpotCommandService.handle(addSensorCommand);
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping("/{flowerpotId}/temperature/sensors")
+    public ResponseEntity<List<SensorResource>> getTemperatureSensors(@PathVariable Long flowerpotId) {
+        var getSensorsByFlowerpotIdQuery = new GetSensorsByFlowerpotIdQuery(flowerpotId);
+        var sensors = flowerpotQueryService.handle(getSensorsByFlowerpotIdQuery);
+        if (sensors.isEmpty()) {
+            throw new ResourceNotFoundException("Sensors not found");
+        }
+        var temperatureSensors = sensors.stream().filter(sensor -> sensor.getType().equals(SensorType.TEMPERATURE)).toList();
+        var temperatureSensorResources = temperatureSensors.stream().map(SensorResourceFromEntityAssembler::toResourceFromEntity).toList();
+        return ResponseEntity.ok(temperatureSensorResources);
     }
 }
