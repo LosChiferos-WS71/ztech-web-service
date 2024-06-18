@@ -92,4 +92,28 @@ public class FlowerpotController {
         var temperatureSensorResources = temperatureSensors.stream().map(SensorResourceFromEntityAssembler::toResourceFromEntity).toList();
         return ResponseEntity.ok(temperatureSensorResources);
     }
+
+    @GetMapping("/{flowerpotId}/humidity/sensors")
+    public ResponseEntity<List<SensorResource>> getHumiditySensors(@PathVariable Long flowerpotId) {
+        var getSensorsByFlowerpotIdQuery = new GetSensorsByFlowerpotIdQuery(flowerpotId);
+        var sensors = flowerpotQueryService.handle(getSensorsByFlowerpotIdQuery);
+        if (sensors.isEmpty()) {
+            throw new ResourceNotFoundException("Sensors not found");
+        }
+        var humiditySensors = sensors.stream().filter(sensor -> sensor.getType().equals(SensorType.HUMIDITY)).toList();
+        var humiditySensorResources = humiditySensors.stream().map(SensorResourceFromEntityAssembler::toResourceFromEntity).toList();
+        return ResponseEntity.ok(humiditySensorResources);
+    }
+
+    @GetMapping("/{flowerpotId}/sunlight/sensors")
+    public ResponseEntity<List<SensorResource>> getSunlightSensors(@PathVariable Long flowerpotId) {
+        var getSensorsByFlowerpotIdQuery = new GetSensorsByFlowerpotIdQuery(flowerpotId);
+        var sensors = flowerpotQueryService.handle(getSensorsByFlowerpotIdQuery);
+        if (sensors.isEmpty()) {
+            throw new ResourceNotFoundException("Sensors not found");
+        }
+        var sunlightSensors = sensors.stream().filter(sensor -> sensor.getType().equals(SensorType.SUNLIGHT)).toList();
+        var sunlightSensorResources = sunlightSensors.stream().map(SensorResourceFromEntityAssembler::toResourceFromEntity).toList();
+        return ResponseEntity.ok(sunlightSensorResources);
+    }
 }
