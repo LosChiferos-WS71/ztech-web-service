@@ -16,8 +16,6 @@ import java.util.stream.Collectors;
 public class UserDetailsImpl implements UserDetails {
 
     private final String username;
-    @JsonIgnore
-    private final String password;
     private final boolean accountNonExpired;
     private final boolean accountNonLocked;
     private final boolean credentialsNonExpired;
@@ -25,9 +23,8 @@ public class UserDetailsImpl implements UserDetails {
     private final Collection<? extends GrantedAuthority> authorities;
 
 
-    public UserDetailsImpl(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserDetailsImpl(String username, Collection<? extends GrantedAuthority> authorities) {
         this.username = username;
-        this.password = password;
         this.accountNonExpired = true;
         this.accountNonLocked = true;
         this.credentialsNonExpired = true;
@@ -41,8 +38,12 @@ public class UserDetailsImpl implements UserDetails {
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
         return new UserDetailsImpl(
-                user.getUsername(),
-                user.getPassword(),
+                user.getEmail(),
                 authorities);
+    }
+
+    @Override
+    public String getPassword() {
+        return null;
     }
 }

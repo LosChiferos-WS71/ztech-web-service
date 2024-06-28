@@ -17,16 +17,16 @@ public interface UserRepository extends JpaRepository<User, Long> {
     /**
      * This method is used to find a user by its username.
      *
-     * @param username the user username.
+     * @param email the user username.
      * @return the {@link User} object.
      */
-    Optional<User> findByUsername(String username);
+    Optional<User> findByEmail(String email);
 
     /**
      * This method is used to check if a user exists by its username.
      *
-     * @param username the user username.
+     * @param email the user username.
      * @return true if the user exists, false otherwise.
      */
-    boolean existsByUsername(String username);
+    boolean existsByEmail(String email);
 }

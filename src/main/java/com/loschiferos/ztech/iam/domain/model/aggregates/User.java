@@ -17,7 +17,6 @@ import java.util.Set;
 
 @Getter
 @Setter
-@EntityListeners(AuditingEntityListener.class)
 @Entity
 public class User extends AbstractAggregateRoot<User> {
     @Id
@@ -27,11 +26,7 @@ public class User extends AbstractAggregateRoot<User> {
     @NotBlank
     @Size(max = 50)
     @Column(unique = true)
-    private String username;
-
-    @NotBlank
-    @Size(max = 120)
-    private String password;
+    private String email;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
@@ -39,38 +34,19 @@ public class User extends AbstractAggregateRoot<User> {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-
-    @Column(nullable = false)
-    private LocalDateTime createdAt;
-
-    @Column(nullable = false)
-    private LocalDateTime updatedAt;
-
     // Otros campos, getters y setters
 
-    @PrePersist
-    protected void onCreate() {
-        LocalDateTime now = LocalDateTime.now();
-        this.createdAt = now;
-        this.updatedAt = now;
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedAt = LocalDateTime.now();
-    }
     public User() {
         roles = new HashSet<>();
     }
 
-    public User(String username, String password) {
+    public User(String email) {
         this();
-        this.username = username;
-        this.password = password;
+        this.email = email;
     }
 
-    public User(String username, String password, List<Role> roles) {
-        this(username, password);
+    public User(String email, List<Role> roles) {
+        this(email);
         addRoles(roles);
     }
 
