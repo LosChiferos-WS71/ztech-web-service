@@ -22,7 +22,7 @@ public class SensorList {
         sensors.add(sensor);
     }
 
-    public List<Double> getAllInternalSerialNumbers() {
-        return sensors.stream().map(Sensor::getInternalSerialNumber).collect(Collectors.toList());
+    public List<Sensor> getAllSensors() {
+        return sensors;
     }
 }

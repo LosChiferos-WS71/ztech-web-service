@@ -10,11 +10,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class SensorsData {
-    private int lastTemperature;
-    private int lastHumidity;
-    private int lastSunlight;
+    private Long lastTemperature;
+    private Long lastHumidity;
+    private Long lastSunlight;
 
-    public SensorsData(int lastTemperature, int lastHumidity, int lastSunlight) {
+    public SensorsData(Long lastTemperature, Long lastHumidity, Long lastSunlight) {
         this.lastTemperature = lastTemperature;
         this.lastHumidity = lastHumidity;
         this.lastSunlight = lastSunlight;

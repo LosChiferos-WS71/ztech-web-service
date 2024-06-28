@@ -22,16 +22,15 @@ public class Sensor {
     private Flowerpot flowerpot;
 
     @Getter
-    private Double internalSerialNumber;
-
     private SensorType type;
 
-    private Double value;
+    @Getter
+    private Long value;
 
+    @Getter
     private Timestamp timestamp;
 
-    public Sensor(Double internalSerialNumber, SensorType type, Double value, Flowerpot flowerpot) {
-        this.internalSerialNumber = internalSerialNumber;
+    public Sensor(SensorType type, Long value, Flowerpot flowerpot) {
         this.type = type;
         this.value = value;
         this.timestamp = new Timestamp(System.currentTimeMillis());

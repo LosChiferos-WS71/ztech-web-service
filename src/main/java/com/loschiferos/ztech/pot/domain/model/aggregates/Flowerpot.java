@@ -43,12 +43,20 @@ public class Flowerpot {
         this.sensorsData = sensorsData;
     }
 
-    public void createSensor(Double internalSerialNumber, SensorType type, Double value) {
-        Sensor sensor = new Sensor(internalSerialNumber, type, value, this);
+    public void createSensor(SensorType type, Long value) {
+        Sensor sensor = new Sensor(type, value, this);
         this.sensorList.createSensor(sensor);
+
+        if(type == SensorType.TEMPERATURE) {
+            this.sensorsData.setLastTemperature(value);
+        } else if(type == SensorType.HUMIDITY) {
+            this.sensorsData.setLastHumidity(value);
+        } else if(type == SensorType.SUNLIGHT) {
+            this.sensorsData.setLastSunlight(value);
+        }
     }
 
-    public List<Double> getAllInternalSerialNumbers() {
-        return sensorList.getAllInternalSerialNumbers();
+    public List<Sensor> getAllSensors() {
+        return sensorList.getAllSensors();
     }
 }

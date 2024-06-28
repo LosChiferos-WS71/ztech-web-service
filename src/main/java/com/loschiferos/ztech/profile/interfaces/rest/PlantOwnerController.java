@@ -7,8 +7,10 @@ import com.loschiferos.ztech.profile.domain.services.PlantOwnerCommandService;
 import com.loschiferos.ztech.profile.domain.services.PlantOwnerQueryService;
 import com.loschiferos.ztech.profile.interfaces.rest.resources.CreatePlantOwnerResource;
 import com.loschiferos.ztech.profile.interfaces.rest.resources.PlantOwnerResource;
+import com.loschiferos.ztech.profile.interfaces.rest.resources.UpdatePlantOwnerResource;
 import com.loschiferos.ztech.profile.interfaces.rest.transform.CreatePlantOwnerCommandFromResourceAssembler;
 import com.loschiferos.ztech.profile.interfaces.rest.transform.PlantOwnerResourceFromEntityAssembler;
+import com.loschiferos.ztech.profile.interfaces.rest.transform.UpdatePlantOwnerCommandFromResourceAssembler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -76,21 +78,12 @@ public class PlantOwnerController {
         return ResponseEntity.ok(plantOwnerResources);
     }
 
-    @PutMapping
-    public ResponseEntity<PlantOwnerResource> updatePlantOwner(@RequestBody CreatePlantOwnerResource resource) {
-        var createPlantOwnerCommand = CreatePlantOwnerCommandFromResourceAssembler.toCommandFromResource(resource);
-        var plantOwnerId = plantOwnerCommandService.handle(createPlantOwnerCommand);
-        if (plantOwnerId == 0L) {
-            return ResponseEntity.badRequest().build();
-        }
-        var getPlantOwnerByIdQuery = new GetPlantOwnerByIdQuery(plantOwnerId);
-        var plantOwner = plantOwnerQueryService.handle(getPlantOwnerByIdQuery);
-
-        if (plantOwner.isEmpty()) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        var plantOwnerResource = PlantOwnerResourceFromEntityAssembler.toResourceFromEntity(plantOwner.get());
-        return new ResponseEntity<>(plantOwnerResource, HttpStatus.CREATED);
+    @PutMapping("/{plantOwnerId}")
+    public ResponseEntity<PlantOwnerResource> updatePlantOwner(@PathVariable Long plantOwnerId, @RequestBody UpdatePlantOwnerResource updatePlantOwnerResource) {
+        var updatePlantOwnerCommand = UpdatePlantOwnerCommandFromResourceAssembler.toCommandFromResource(plantOwnerId, updatePlantOwnerResource);
+        var updatedPlantOwner = plantOwnerCommandService.handle(updatePlantOwnerCommand);
+        if (updatedPlantOwner.isEmpty()) return ResponseEntity.badRequest().build();
+        var plantOwnerResource = PlantOwnerResourceFromEntityAssembler.toResourceFromEntity(updatedPlantOwner.get());
+        return ResponseEntity.ok(plantOwnerResource);
     }
 }

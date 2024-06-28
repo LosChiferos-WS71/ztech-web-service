@@ -29,6 +29,9 @@ public class PlantTypeCommandServiceImpl implements PlantTypeCommandService {
         if (plantTypeRepository.existsByName(command.name())) {
             throw new ValidationException("PlantType with same name already exists");
         }
+        if (command.scientificName() == null || command.scientificName().isEmpty()) {
+            throw new ValidationException("Scientific name cannot be empty");
+        }
         if (command.photo() == null || command.photo().isEmpty()) {
             throw new ValidationException("Photo cannot be empty");
         }
@@ -36,7 +39,7 @@ public class PlantTypeCommandServiceImpl implements PlantTypeCommandService {
             throw new ValidationException("Description cannot be empty");
         }
 
-        PlantType plantType = new PlantType(command.name(), command.photo(), command.description());
+        PlantType plantType = new PlantType(command.name(), command.scientificName(), command.photo(), command.description());
         PlantType savedPlantType = plantTypeRepository.save(plantType);
         return savedPlantType.getId();
     }
@@ -48,8 +51,8 @@ public class PlantTypeCommandServiceImpl implements PlantTypeCommandService {
 
         validateCreateParameterCommand(command);
 
-        if (plantType.getParameterList().getAllParameters() != null) {
-            for (var parameter : plantType.getParameterList().getAllParameters()) {
+        if (plantType.getParameterList().getAllParameterTypes() != null) {
+            for (var parameter : plantType.getParameterList().getAllParameterTypes()) {
                 if (parameter.equals(ParameterType.fromValue(command.type()))) {
                     throw new ValidationException("Parameter with same type already exists");
                 }

@@ -12,6 +12,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.apache.logging.log4j.util.Strings;
 
+import java.util.List;
+
 @Getter
 @Entity
 @AllArgsConstructor
@@ -22,6 +24,8 @@ public class PlantType {
 
     private String name;
 
+    private String scientificName;
+
     private String photo;
 
     private String description;
@@ -31,14 +35,16 @@ public class PlantType {
 
     public PlantType() {
         this.name = Strings.EMPTY;
+        this.scientificName = Strings.EMPTY;
         this.photo = Strings.EMPTY;
         this.description = Strings.EMPTY;
         this.parameterList = new ParameterList();
     }
 
-    public PlantType(String name, String photo, String description) {
+    public PlantType(String name, String scientificName, String photo, String description) {
         this();
         this.name = name;
+        this.scientificName = scientificName;
         this.photo = photo;
         this.description = description;
     }
@@ -48,7 +54,7 @@ public class PlantType {
         this.parameterList.createParameter(parameter);
     }
 
-    public ParameterList getAllParameters() {
-        return parameterList;
+    public List<Parameter> getAllParameters() {
+        return parameterList.getAllParameters();
     }
 }

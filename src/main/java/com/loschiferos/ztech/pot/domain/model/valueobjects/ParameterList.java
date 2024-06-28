@@ -22,7 +22,11 @@ public class ParameterList {
         parameters.add(parameter);
     }
 
-    public List<ParameterType> getAllParameters() {
+    public List<Parameter> getAllParameters() {
+        return parameters;
+    }
+
+    public List<ParameterType> getAllParameterTypes() {
         return parameters.stream().map(Parameter::getParameterType).collect(Collectors.toList());
     }
 }
