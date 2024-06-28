@@ -14,5 +14,6 @@ public record SignUpCommand(
         Long dni,
         Date birthday,
         String gender,
+        String ruc,
         List<Role> roles)
 { }
